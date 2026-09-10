@@ -20,7 +20,23 @@
         max-width: 1400px;
         margin: 0 auto;
     }
-    h1 {
+    /* ===== 顶部返回/跳转链接 ===== */
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: #1677ff;
+        text-decoration: none;
+        margin-bottom: 20px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .back-link:hover {
+        background: #e6f7ff;
+    }
+   h1 {
         font-size: 24px;
         margin-bottom: 8px;
     }
@@ -281,6 +297,7 @@
 <body>
 
 <div class="container">
+    <a class="back-link" href="plasticknowledge.html">🧩 塑胶件加工方式 · 知识拓展 →</a> 
     <h1>📋 塑胶件生产工序流程图</h1>
     <p class="subtitle">点击上方工序方框，下方显示该工序的详细内容</p>
 
