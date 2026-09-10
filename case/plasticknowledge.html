@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>塑胶件加工方式 · 知识拓展</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+    body {
+        background: #f5f7fa;
+        padding: 24px;
+        color: #1a1a2e;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* ===== 顶部返回链接 ===== */
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: #1677ff;
+        text-decoration: none;
+        margin-bottom: 20px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .back-link:hover {
+        background: #e6f7ff;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    .subtitle {
+        color: #8c8c8c;
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    /* ===== 大类卡片（手风琴） ===== */
+    .category {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+    }
+    .category:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.2s;
+    }
+    .category-header:hover {
+        background: #fafafa;
+    }
+    .category-header .cat-icon {
+        font-size: 20px;
+        flex: 0 0 auto;
+    }
+    .category-header .cat-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a2e;
+        flex: 1;
+    }
+    .category-header .cat-count {
+        font-size: 12px;
+        color: #8c8c8c;
+        background: #f0f0f0;
+        padding: 2px 10px;
+        border-radius: 10px;
+        flex: 0 0 auto;
+    }
+    .category-header .cat-arrow {
+        font-size: 14px;
+        color: #bfbfbf;
+        flex: 0 0 auto;
+        transition: transform 0.25s;
+    }
+    .category.open .category-header .cat-arrow {
+        transform: rotate(90deg);
+    }
+
+    /* ===== 展开内容区 ===== */
+    .category-body {
+        display: none;
+        padding: 0 20px 16px 20px;
+    }
+    .category.open .category-body {
+        display: block;
+    }
+
+    /* 子类 */
+    .subcategory {
+        border-left: 3px solid #1677ff;
+        padding-left: 14px;
+        margin-bottom: 16px;
+    }
+    .subcategory:last-child {
+        margin-bottom: 0;
+    }
+    .subcategory-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1677ff;
+        margin-bottom: 8px;
+    }
+
+    /* 具体工艺标签 */
+    .process-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .process-tag {
+        background: #f6f8fa;
+        border: 1px solid #e8e8e8;
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 13px;
+        color: #1a1a2e;
+        transition: all 0.2s;
+        cursor: default;
+    }
+    .process-tag:hover {
+        background: #e6f7ff;
+        border-color: #91d5ff;
+        color: #1677ff;
+    }
+    /* 高亮标签（如丝印、移印） */
+    .process-tag.highlight {
+        background: #fff7e6;
+        border-color: #ffd591;
+        color: #d46b08;
+    }
+    .process-tag.highlight:hover {
+        background: #ffe7ba;
+        border-color: #ffc069;
+    }
+
+    /* 说明文字 */
+    .process-note {
+        font-size: 12px;
+        color: #8c8c8c;
+        margin-top: 6px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+        body { padding: 12px; }
+        h1 { font-size: 20px; }
+        .category-header { padding: 14px 16px; }
+        .category-header .cat-name { font-size: 15px; }
+        .category-body { padding: 0 16px 14px 16px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 返回链接：把 href 换成你工序流程图页面的 URL -->
+    <a class="back-link" href="index.html">← 返回工序流程图</a>
+
+    <h1>🧩 塑胶件加工方式</h1>
+    <p class="subtitle">5 个大类 · 20+ 子类 · 几十种具体工艺，点击大类展开查看</p>
+
+    <div id="categoryList"></div>
+
+</div>
+
+<script>
+// ================================================================
+// 数据：大类 → 子类 → 具体工艺
+// highlight: true 的标签会高亮显示（比如丝印、移印）
+// ================================================================
+const categories = [
+    {
+        icon: '🏭',
+        name: '成型加工',
+        note: '把塑料原料变成一定形状的毛坯或成品',
+        subcategories: [
+            {
+                name: '注塑类',
+                processes: ['注塑', '双色注塑', '包胶注塑', '嵌件注塑', '微发泡注塑'],
+                note: '充电宝外壳、结构件、螺母嵌件最常用的成型方式'
+            },
+            {
+                name: '挤出类',
+                processes: ['挤出', '共挤', '异型材挤出'],
+                note: '管材、板材、密封条等连续型材'
+            },
+            {
+                name: '吹塑类',
+                processes: ['中空吹塑', '注拉吹'],
+                note: '瓶、桶、中空件'
+            },
+            {
+                name: '热成型',
+                processes: ['真空成型', '吸塑', '压空成型'],
+                note: '包装托盘、薄壳'
+            },
+            {
+                name: '模压/浇铸',
+                processes: ['压塑', '滚塑', '浇铸'],
+                note: '大型件、小批量件'
+            },
+            {
+                name: '增材制造',
+                processes: ['3D打印（FDM）', '3D打印（SLA）', '3D打印（SLS）'],
+                note: '手板、复杂原型'
+            }
+        ]
+    },
+    {
+        icon: '⚙️',
+        name: '机械加工',
+        note: '对已成型的塑胶件进行切削、钻孔、精修',
+        subcategories: [
+            {
+                name: '切削',
+                processes: ['CNC铣削', '车削', '钻孔', '攻丝'],
+                note: '手板、精修孔位，充电宝外壳 CNC 精修属于此类'
+            },
+            {
+                name: '切割',
+                processes: ['激光切割', '超声切割', '水刀'],
+                note: '开孔、切边'
+            },
+            {
+                name: '精修',
+                processes: ['去毛刺', '倒角', '抛光'],
+                note: '边缘处理、表面修整'
+            }
+        ]
+    },
+    {
+        icon: '🎨',
+        name: '表面处理',
+        note: '改变外观、手感、颜色或增加功能',
+        subcategories: [
+            {
+                name: '前处理',
+                processes: ['除油', '火焰处理', '电晕/电火花', '等离子', '退火'],
+                note: '提升附着力、去内应力，喷涂前必备环节'
+            },
+            {
+                name: '涂装',
+                processes: ['喷涂（底漆）', '喷涂（面漆）', '喷涂（UV漆）', '浸涂', '粉末涂装'],
+                note: '充电宝外壳外观与保护'
+            },
+            {
+                name: '印刷/标记',
+                processes: ['丝印', '移印', '转印', '烫印', '喷码', '激光打标'],
+                note: 'Logo、参数、图案、二维码',
+                highlight: ['丝印', '移印']
+            },
+            {
+                name: '镀覆/装饰',
+                processes: ['电镀', '真空镀', '溅镀', 'IMD/IML', '烫金'],
+                note: '装饰、导电、反光'
+            },
+            {
+                name: '纹理/手感',
+                processes: ['蚀纹', '喷砂', '橡胶漆', '准分子哑光'],
+                note: '手感、防滑、哑光效果'
+            }
+        ]
+    },
+    {
+        icon: '🔗',
+        name: '连接与装配',
+        note: '把多个塑胶件或塑胶与金属件组合在一起',
+        subcategories: [
+            {
+                name: '焊接',
+                processes: ['超声焊接', '热板焊接', '激光焊接', '振动摩擦焊接'],
+                note: '上下壳合模'
+            },
+            {
+                name: '机械紧固',
+                processes: ['螺丝', '卡扣', '铆接'],
+                note: '可拆装配'
+            },
+            {
+                name: '粘接',
+                processes: ['胶粘', '双面胶', '热熔胶'],
+                note: '固定、密封'
+            },
+            {
+                name: '嵌件',
+                processes: ['嵌件注塑', '热熔植入', '超声植入'],
+                note: '金属螺母植入'
+            }
+        ]
+    },
+    {
+        icon: '✨',
+        name: '特殊加工',
+        note: '针对特殊材料或特殊需求',
+        subcategories: [
+            {
+                name: '热处理',
+                processes: ['退火', '调湿'],
+                note: '去内应力、稳定尺寸'
+            },
+            {
+                name: '发泡',
+                processes: ['化学发泡', '物理发泡'],
+                note: '轻量、缓冲'
+            },
+            {
+                name: '表面改性',
+                processes: ['等离子', '激光雕刻', 'UV改质'],
+                note: '局部功能化'
+            },
+            {
+                name: '复合',
+                processes: ['包覆', '复合', '层压'],
+                note: '多材料组合'
+            }
+        ]
+    }
+];
+
+// ================================================================
+// 渲染
+// ================================================================
+const list = document.getElementById('categoryList');
+
+list.innerHTML = categories.map((cat, ci) => {
+    const totalProcesses = cat.subcategories.reduce((sum, sub) => sum + sub.processes.length, 0);
+    return `
+        <div class="category" id="cat-${ci}">
+            <div class="category-header" onclick="toggleCategory(${ci})">
+                <span class="cat-icon">${cat.icon}</span>
+                <span class="cat-name">${cat.name}</span>
+                <span class="cat-count">${cat.subcategories.length} 子类 · ${totalProcesses} 工艺</span>
+                <span class="cat-arrow">▶</span>
+            </div>
+            <div class="category-body">
+                ${cat.subcategories.map(sub => `
+                    <div class="subcategory">
+                        <div class="subcategory-name">${sub.name}</div>
+                        <div class="process-tags">
+                            ${sub.processes.map(p => {
+                                const isHighlight = sub.highlight && sub.highlight.includes(p);
+                                return `<span class="process-tag${isHighlight ? ' highlight' : ''}">${p}</span>`;
+                            }).join('')}
+                        </div>
+                        ${sub.note ? `<div class="process-note">${sub.note}</div>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}).join('');
+
+// ================================================================
+// 展开/收起
+// ================================================================
+function toggleCategory(index) {
+    const el = document.getElementById(`cat-${index}`);
+    el.classList.toggle('open');
+}
+
+// 默认展开第一个（可改成 false 让全部默认收起）
+document.getElementById('cat-0').classList.add('open');
+</script>
+
+</body>
+</html>
