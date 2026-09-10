@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生产工序流程</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family: system-ui, sans-serif; }
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        h1 { font-size: 28px; color:#1a1a2e; margin-bottom: 12px; }
+        .subtitle { color:#8c8c8c; font-size:14px; margin-bottom: 48px; }
+        .entry-list {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .entry-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 48px 56px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            text-decoration: none;
+            color: #1a1a2e;
+            transition: all 0.25s;
+            border: 2px solid transparent;
+            min-width: 260px;
+        }
+        .entry-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(22,119,255,0.15);
+            border-color: #1677ff;
+        }
+        .entry-icon { font-size: 56px; margin-bottom: 16px; }
+        .entry-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .entry-desc { font-size: 13px; color: #8c8c8c; line-height: 1.6; }
+        @media (max-width: 640px) {
+            h1 { font-size: 22px; }
+            .entry-card { padding: 36px 40px; min-width: 220px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 生产工序流程</h1>
+    <p class="subtitle">请选择要查看的流程</p>
+    <div class="entry-list">
+        <a class="entry-card" href="plastic.html">
+            <div class="entry-icon">🧴</div>
+            <div class="entry-title">塑胶件流程</div>
+            <div class="entry-desc">ABS+PC 注塑 · 喷涂 · 丝印</div>
+        </a>
+        <a class="entry-card" href="metal.html">
+            <div class="entry-icon">🔩</div>
+            <div class="entry-title">五金件流程</div>
+            <div class="entry-desc">铝合金 · 喷砂 · 阳极氧化 · 镭雕</div>
+        </a>
+    </div>
+</body>
+</html>
