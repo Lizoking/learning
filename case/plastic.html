@@ -36,7 +36,7 @@
     .back-link:hover {
         background: #e6f7ff;
     }
-   h1 {
+    h1 {
         font-size: 24px;
         margin-bottom: 8px;
     }
@@ -49,7 +49,7 @@
     /* ===== 上半部分：流程图 ===== */
     .flowchart {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         overflow-x: auto;
         padding: 20px 0 30px 0;
         margin-bottom: 24px;
@@ -58,7 +58,7 @@
     .flow-node {
         flex: 0 0 auto;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
     }
     .flow-box {
         background: #fff;
@@ -84,11 +84,23 @@
         color: #fff;
         border-color: #1677ff;
     }
+    /* 工序名下方的时间标注 */
+    .flow-time {
+        font-size: 11px;
+        font-weight: 400;
+        color: #8c8c8c;
+        margin-top: 4px;
+        line-height: 1.3;
+    }
+    .flow-box.active .flow-time {
+        color: rgba(255, 255, 255, 0.85);
+    }
     .flow-arrow {
         font-size: 20px;
         color: #bfbfbf;
         padding: 0 6px;
         flex: 0 0 auto;
+        margin-top: 12px;
     }
 
     /* ===== 下半部分：详情面板 ===== */
@@ -201,14 +213,12 @@
         list-style: none;
         padding: 0;
     }
-    /* 每个问题点：左问题 + 右处理方案 */
     .problem-list > ul > li {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 10px;
         margin-bottom: 10px;
     }
-    /* 左侧问题卡片 */
     .problem-card {
         display: flex;
         align-items: flex-start;
@@ -224,7 +234,6 @@
         line-height: 1.6;
         padding-top: 2px;
     }
-    /* 问题点后面的小附件位 */
     .problem-attach {
         flex: 0 0 auto;
         width: 56px;
@@ -257,7 +266,6 @@
         pointer-events: none;
     }
 
-    /* 右侧处理方案卡片 */
     .solution-box {
         padding: 12px 12px 12px 14px;
         background: #f6ffed;
@@ -287,7 +295,6 @@
         .flow-arrow { font-size: 16px; padding: 0 4px; }
         .media-item img,
         .media-item video { width: 100%; height: auto; }
-        /* 小屏时问题与处理方案改为上下堆叠 */
         .problem-list > ul > li {
             grid-template-columns: 1fr;
         }
@@ -298,7 +305,7 @@
 
 <div class="container">
     <a class="back-link" href="index.html">🏠 返回主页</a>
-    <a class="back-link" href="plasticknowledge.html">🧩 塑胶件加工方式 · 知识拓展 →</a> 
+    <a class="back-link" href="plasticknowledge.html">🧩 塑胶件加工方式 · 知识拓展 →</a>
     <h1>📋 塑胶件生产工序流程图</h1>
     <p class="subtitle">点击上方工序方框，下方显示该工序的详细内容</p>
 
@@ -379,12 +386,14 @@ function renderSolution(solution) {
 
 // ================================================================
 // 工序数据
+// 每道工序新增 time 字段，用于流程图方框下方显示时间标注
 // 问题点格式：{ text: '问题描述', solution: '处理方案（可留空）', attach: {name, src} }
 // ================================================================
 const processes = [
     {
         id: 'incoming',
         name: '来料',
+        time: '3 天',
         material: 'ABS+PC 合金颗粒（本色/黑色，25kg/袋）',
         description: '供应商送货到厂。核对物料型号、数量、批次号、牌号标识，检查包装是否完好。ABS+PC 来料已是造粒好的合金颗粒，注塑厂不需要自行混合。',
         problems: [
@@ -411,6 +420,7 @@ const processes = [
     {
         id: 'inspection',
         name: '检验',
+        time: '1 天',
         material: 'ABS+PC 颗粒、标准色板',
         description: 'IQC 进料检验：核对牌号与 COA，目视检查颗粒颜色、形态、杂质；抽检含水率。必要时用 DSC 做批次一致性比对，用红外光谱鉴定成分是否为 PC/ABS。',
         problems: [
@@ -438,6 +448,7 @@ const processes = [
     {
         id: 'prep',
         name: '成型前准备',
+        time: '0.5 天',
         material: 'ABS+PC 颗粒、模具、清洗料',
         description: '① 原料用热风干燥机在 80-100℃ 下烘干 4-6 小时，含水率降至 0.04% 以下，烘干后必须立即上线，不能久放（约 30 分钟就会二次吸湿）；② 模具安装、清洁、预热至 70-80℃；③ 料筒用清洗料彻底清洗，深色换浅色或清积碳时可能耗时 1 小时以上。',
         problems: [
@@ -467,6 +478,7 @@ const processes = [
     {
         id: 'injection',
         name: '注塑',
+        time: '2 天',
         material: 'ABS+PC 熔融料',
         description: '合模 → 射胶 → 保压 → 冷却定型 → 开模 → 顶出取件。料筒温度约 220-260℃，模温 60-80℃，保压压力为注射压力的 50-70%。烘干后的料通过密闭管道直接送入注塑机，避免二次吸湿。',
         problems: [
@@ -494,6 +506,7 @@ const processes = [
     {
         id: 'post',
         name: '注塑后处理',
+        time: '1 天',
         material: '注塑成品壳、水口料',
         description: '① 人工或工具去除毛刺、浇口残留，分离出的水口料可粉碎后按 15-30% 比例回掺（外观件和结构件通常要求 100% 新料）；② 对结构复杂或掺水口料的工件，进行去应力退火：65-75℃ 烘 2-4 小时，缓慢冷却；③ 全检外观，挑出不良品。',
         problems: [
@@ -521,6 +534,7 @@ const processes = [
     {
         id: 'to-spray',
         name: '送喷涂厂',
+        time: '0.5 天',
         material: '注塑白件、周转箱、保护膜',
         description: '将检验合格的注塑白件装周转箱，做好防护后送往喷涂厂。运输过程中需防尘、防刮伤、防挤压变形。',
         problems: [
@@ -540,6 +554,7 @@ const processes = [
     {
         id: 'spray-iqc',
         name: '检验',
+        time: '0.5 天',
         material: '注塑白件',
         description: '喷涂厂来料检验：检查白件是否有飞边、缩水、变形、划伤、色差等缺陷，确认退火是否已完成（如需要），不合格品退回或挑出。',
         problems: [
@@ -559,6 +574,7 @@ const processes = [
     {
         id: 'hanging',
         name: '上挂线',
+        time: '0.5 天',
         material: '白件、喷涂治具、遮蔽材料',
         description: '将白件装到喷涂治具或挂具上，遮蔽不需要喷涂的区域（如卡扣、螺丝柱、导电触点）。确保工件在后续清洗和喷涂中不脱落、不划伤。',
         problems: [
@@ -579,6 +595,7 @@ const processes = [
     {
         id: 'pretreatment',
         name: '喷涂前处理',
+        time: '1 天',
         material: '白电油/酒精、处理剂、离子风',
         description: '① 除油：用白手套蘸白电油或酒精擦拭，去除脱模剂和油污（也有产线用超声波清洗：40-60KHz、40-60℃、10-15 分钟）；② 表面活化：火焰处理或电晕/电火花处理，提升表面张力，ABS+PC 处理后表面张力可从 34mN/m 提升至 48mN/m 以上；③ 除尘：离子风枪吹扫，中和静电；④ 喷涂底光油/处理剂（3-5μm），增强附着力。',
         problems: [
@@ -614,6 +631,7 @@ const processes = [
     {
         id: 'spraying',
         name: '喷涂',
+        time: '1 天',
         material: '底漆、UV 面漆/准分子漆、稀释剂',
         description: '① 喷涂底漆（10-20μm）：增强附着力、遮盖瑕疵、统一底色；② 流平：不到 1 分钟（小面积产品，快干型溶剂）；③ 喷涂 UV 面漆或准分子漆（15-30μm）：决定最终颜色、光泽和手感。',
         problems: [
@@ -641,6 +659,7 @@ const processes = [
     {
         id: 'curing',
         name: '烘干/固化',
+        time: '0.5 天',
         material: '喷涂后的壳件',
         description: 'UV 漆：先经热风/红外烘道预烘（70℃ 约 5-8 分钟），让漆膜充分流平并挥发溶剂，再进 UV 固化炉，紫外线照射几秒到十几秒瞬间固化。准分子漆：LED 预固化 → 172nm 准分子灯固化（氮气环境，抑制氧阻聚）→ 汞灯全固化。热风炉和 UV 固化炉是两台独立设备，可分别控制。',
         problems: [
@@ -667,6 +686,7 @@ const processes = [
     {
         id: 'unhanging',
         name: '下挂线',
+        time: '0.5 天',
         material: '固化后壳件、治具',
         description: '将固化完成的壳件从治具上取下，拆除遮蔽材料，检查喷涂面是否有明显缺陷，合格件转入品检。',
         problems: [
@@ -686,6 +706,7 @@ const processes = [
     {
         id: 'reliability',
         name: '品检（可靠性测试）',
+        time: '1 天',
         material: '喷涂成品壳',
         description: '外观全检 + 可靠性抽检：附着力（划格法）、铅笔硬度、酒精耐磨、色差（ΔE≤1.5）、光泽度。充电宝外壳还需关注抗刮耐磨和耐手汗腐蚀。',
         problems: [
@@ -713,6 +734,7 @@ const processes = [
     {
         id: 'post-process',
         name: '后处理（遮蔽撕膜-移印/丝印）',
+        time: '1 天',
         material: '丝印/移印油墨、网版、胶头、刮刀',
         description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字；④ 印后 80℃ 烘 5-10 分钟。',
         problems: [
@@ -740,6 +762,7 @@ const processes = [
     {
         id: 'back-to-injection',
         name: '送注塑厂',
+        time: '0.5 天',
         material: '印刷后壳件、周转箱',
         description: '将完成喷涂和印刷的壳件送回注塑厂，进行 CNC 精修。运输过程需防尘、防刮伤。',
         problems: [
@@ -759,6 +782,7 @@ const processes = [
     {
         id: 'cnc',
         name: 'CNC',
+        time: '1 天',
         material: '喷涂/丝印后的壳件',
         description: 'CNC 精修开孔、切割、倒角，确保尺寸精度（可达 ±0.05mm）。塑胶 CNC 需注意：用单刃刀具减少切削热，防止塑胶发热变形和毛刺；可在加工区域铺工业橡皮泥缓冲刀具作用力。CNC 放在丝印之后时，需对已印刷区域做遮蔽保护。',
         problems: [
@@ -780,6 +804,7 @@ const processes = [
     {
         id: 'packaging',
         name: '检验包装送货',
+        time: '1 天',
         material: '成品壳、保护膜、包装箱',
         description: '全检外观（漆面、印刷、CNC 边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。',
         problems: [
@@ -814,7 +839,10 @@ flowchart.innerHTML = processes.map((p, i) => {
     const arrow = i < processes.length - 1 ? '<div class="flow-arrow">→</div>' : '';
     return `
         <div class="flow-node">
-            <div class="flow-box" data-id="${p.id}" onclick="showDetail('${p.id}', this)">${p.name}</div>
+            <div class="flow-box" data-id="${p.id}" onclick="showDetail('${p.id}', this)">
+                <div>${p.name}</div>
+                ${p.time ? `<div class="flow-time">⏱ ${p.time}</div>` : ''}
+            </div>
             ${arrow}
         </div>
     `;
@@ -885,6 +913,12 @@ function showDetail(id, el) {
                 <div class="label">工艺描述</div>
                 <div class="value">${p.description}</div>
             </div>
+            ${p.time ? `
+            <div class="info-item">
+                <div class="label">预计耗时</div>
+                <div class="value">⏱ ${p.time}</div>
+            </div>
+            ` : ''}
         </div>
         ${modulesHtml}
         ${problemsHtml}
