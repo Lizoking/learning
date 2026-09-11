@@ -287,7 +287,44 @@
         color: #bfbfbf;
         font-style: italic;
     }
-
+/* ===== 灯箱（点击放大） ===== */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    cursor: zoom-out;
+}
+.lightbox-overlay.show {
+    display: flex;
+}
+.lightbox-overlay img,
+.lightbox-overlay video {
+    max-width: 95vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    cursor: default;
+}
+.lightbox-overlay .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    font-size: 32px;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+.lightbox-overlay .lightbox-close:hover {
+    opacity: 1;
+}
     @media (max-width: 640px) {
         body { padding: 12px; }
         h1 { font-size: 20px; }
