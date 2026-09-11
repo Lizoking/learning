@@ -349,7 +349,10 @@
     <div class="flowchart" id="flowchart"></div>
     <div class="detail-panel" id="detailPanel"></div>
 </div>
-
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">×</span>
+    <div id="lightboxContent"></div>
+</div>
 <script>
 // ================================================================
 // 占位图（SVG Data URI）
@@ -367,18 +370,20 @@ const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
 function renderMediaItem(item) {
     const src = item.src || '';
     const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(src);
+    const safeSrc = src.replace(/'/g, "\\'");
     if (isVideo) {
         return `
             <div class="media-item">
                 <div class="media-name">${item.name}</div>
                 <video src="${src}" controls></video>
+                <div class="media-zoom-hint" onclick="openLightbox('${safeSrc}', true)">🔍 点击放大</div>
             </div>
         `;
     }
     return `
         <div class="media-item">
             <div class="media-name">${item.name}</div>
-            <img src="${src}" alt="${item.name}">
+            <img src="${src}" alt="${item.name}" onclick="openLightbox('${safeSrc}', false)">
         </div>
     `;
 }
@@ -964,6 +969,41 @@ function showDetail(id, el) {
 
     panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+   
+// ================================================================
+// 灯箱：点击放大，按原始尺寸显示
+// ================================================================
+function openLightbox(src, isVideo) {
+    const overlay = document.getElementById('lightbox');
+    const content = document.getElementById('lightboxContent');
+    if (isVideo) {
+        content.innerHTML = `<video src="${src}" controls autoplay></video>`;
+    } else {
+        content.innerHTML = `<img src="${src}" alt="">`;
+    }
+    overlay.classList.add('show');
+}
+
+function closeLightbox(e) {
+    if (e && e.target.closest('#lightboxContent') && e.target.tagName !== 'VIDEO') return;
+    const overlay = document.getElementById('lightbox');
+    const video = overlay.querySelector('video');
+    if (video) video.pause();
+    overlay.classList.remove('show');
+    document.getElementById('lightboxContent').innerHTML = '';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const overlay = document.getElementById('lightbox');
+        if (overlay.classList.contains('show')) {
+            const video = overlay.querySelector('video');
+            if (video) video.pause();
+            overlay.classList.remove('show');
+            document.getElementById('lightboxContent').innerHTML = '';
+        }
+    }
+});
 </script>
 
 </body>
