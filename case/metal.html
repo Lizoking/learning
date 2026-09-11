@@ -21,7 +21,6 @@
     h1 { font-size: 24px; }
     .subtitle { color: #8c8c8c; font-size: 14px; margin-bottom: 0; }
 
-    /* 知识拓展入口按钮（现在是一个链接） */
     .knowledge-btn {
         display: inline-flex; align-items: center; gap: 6px;
         background: #fff; border: 2px solid #722ed1; color: #722ed1;
@@ -32,12 +31,22 @@
     .knowledge-btn:hover { background: #f9f0ff; border-color: #9254de; color: #9254de; }
 
     /* ===== 流程图 ===== */
-    .flowchart { display: flex; align-items: center; overflow-x: auto; padding: 20px 0 30px 0; margin-bottom: 24px; -webkit-overflow-scrolling: touch; }
-    .flow-node { flex: 0 0 auto; display: flex; align-items: center; }
+    .flowchart { display: flex; align-items: flex-start; overflow-x: auto; padding: 20px 0 30px 0; margin-bottom: 24px; -webkit-overflow-scrolling: touch; }
+    .flow-node { flex: 0 0 auto; display: flex; align-items: flex-start; }
+    .flow-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .flow-box { background: #fff; border: 2px solid #1677ff; color: #1677ff; padding: 12px 18px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap; min-width: 100px; text-align: center; }
     .flow-box:hover { background: #e6f7ff; border-color: #4096ff; color: #4096ff; }
     .flow-box.active { background: #1677ff; color: #fff; border-color: #1677ff; }
-    .flow-arrow { font-size: 20px; color: #bfbfbf; padding: 0 6px; flex: 0 0 auto; }
+    .flow-time {
+        font-size: 11px; color: #8c8c8c; font-weight: 500;
+        background: #f0f5ff; border: 1px solid #d6e4ff;
+        padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+        transition: all 0.2s;
+    }
+    .flow-box.active + .flow-time {
+        background: #1677ff; color: #fff; border-color: #1677ff;
+    }
+    .flow-arrow { font-size: 20px; color: #bfbfbf; padding: 0 6px; flex: 0 0 auto; margin-top: 12px; }
 
     /* ===== 详情面板 ===== */
     .detail-panel { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); padding: 24px; min-height: 120px; display: none; }
@@ -75,6 +84,7 @@
         body { padding: 12px; }
         h1 { font-size: 20px; }
         .flow-box { padding: 10px 14px; font-size: 12px; min-width: 80px; }
+        .flow-time { font-size: 10px; padding: 1px 6px; }
         .flow-arrow { font-size: 16px; padding: 0 4px; }
         .media-item img, .media-item video { width: 100%; height: auto; }
         .problem-list > ul > li { grid-template-columns: 1fr; }
@@ -84,16 +94,16 @@
 <body>
 
 <div class="container">
-<div class="header-row">
-    <div class="header-left">
-        <a class="back-link" href="index.html">← 返回主页</a>
-        <h1>📋 铝合金五金件生产工序流程图</h1>
-        <p class="subtitle">点击上方工序方框，下方显示该工序的详细内容（冲压 + CNC + 阳极氧化全流程）</p>
+    <div class="header-row">
+        <div class="header-left">
+            <a class="back-link" href="index.html">← 返回主页</a>
+            <h1>📋 铝合金五金件生产工序流程图</h1>
+            <p class="subtitle">点击上方工序方框，下方显示该工序的详细内容（冲压 + CNC + 阳极氧化全流程）</p>
+        </div>
+        <a class="knowledge-btn" href="metalknowledge.html">
+            📚 知识拓展 · 铝合金加工方式
+        </a>
     </div>
-    <a class="knowledge-btn" href="metalknowledge.html">
-        📚 知识拓展 · 铝合金加工方式
-    </a>
-</div>
 
     <div class="flowchart" id="flowchart"></div>
     <div class="detail-panel" id="detailPanel"></div>
@@ -108,12 +118,13 @@ const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
 );
 
 /* ================================================================
-   工序数据（19道工序）
+   工序数据（19道工序，含参考时间）
    ================================================================ */
 const processes = [
     {
         id: 'incoming',
         name: '来料',
+        time: '1-3天',
         material: '铝合金板材/卷材（5052、6061、6063等，厚度0.5-3mm）',
         description: '供应商送货到厂。核对材质牌号、厚度、批次号、数量、力学性能报告（COA）。检查板材表面是否有划伤、氧化、油污、波浪变形。铝合金板材需存放在干燥通风处，避免受潮氧化。',
         problems: [
@@ -128,6 +139,7 @@ const processes = [
     {
         id: 'iqc',
         name: '检验',
+        time: '0.5-1天',
         material: '铝合金板材、光谱仪、千分尺',
         description: 'IQC 进料检验：① 用直读光谱仪（OES）检测合金成分，确保符合5052/6061/6063等标准；② 千分尺测量板材厚度；③ 目视检查表面质量；④ 抽检力学性能（如硬度、抗拉强度）。',
         problems: [
@@ -143,6 +155,7 @@ const processes = [
     {
         id: 'blanking',
         name: '下料（剪板/激光切割）',
+        time: '1-2天',
         material: '铝合金板材、剪板机、激光切割机',
         description: '① 剪板：用剪板机将大板剪成条料或块料，适合简单直线下料；② 激光切割：用光纤激光切割机（功率1-3kW）切割复杂形状，精度可达±0.1mm，切口光滑无毛刺。下料后需去油污，为后续冲压做准备。',
         problems: [
@@ -157,7 +170,8 @@ const processes = [
     },
     {
         id: 'stamping',
-        name: '冲压成型（拉深/冲孔/切边）',
+        name: '冲压成型',
+        time: '1-3天',
         material: '下料后板料、冲压模具、冲床',
         description: '① 拉深：将平板料拉深成杯状或盒状；② 冲孔：冲出安装孔、定位孔；③ 切边：切除多余边料，保证外形尺寸。冲压吨位根据板材厚度和成型难度选择，通常 25-200 吨。模具需定期保养，保证间隙合理。',
         problems: [
@@ -174,6 +188,7 @@ const processes = [
     {
         id: 'inspection-stamping',
         name: '检验',
+        time: '0.5-1天',
         material: '冲压后工件、卡尺、投影仪',
         description: '冲压后检验：① 尺寸检验（外形、孔径、孔位）；② 外观检验（开裂、起皱、毛刺、压痕）；③ 抽检拉深壁厚均匀性。不合格品挑出，批量不良需调整模具。',
         problems: [
@@ -189,6 +204,7 @@ const processes = [
     {
         id: 'cnc',
         name: 'CNC精加工',
+        time: '1-3天',
         material: '冲压后工件、CNC设备、切削液',
         description: '上CNC加工中心，进行钻孔、攻牙、铣削、倒角等精加工，保证装配精度（可达±0.02mm）。铝合金切削性能好，但易粘刀，需使用高速切削和充足切削液。加工后需清洗去除切削液。',
         problems: [
@@ -204,6 +220,7 @@ const processes = [
     {
         id: 'deburring',
         name: '去毛刺/清洗',
+        time: '0.5-1天',
         material: 'CNC后工件、磁力研磨机、超声波清洗机、除油粉',
         description: '① 去毛刺：用磁力研磨机（磁针抛光）或人工刮刀去除孔口翻边毛刺；② 清洗：超声波清洗机加碱性除油粉，55-65℃，10-15分钟，去除切削液和铝屑；③ 纯水漂洗；④ 烘干。清洗后工件表面应无油污、无铝屑，白布擦拭无黑灰。',
         problems: [
@@ -219,6 +236,7 @@ const processes = [
     {
         id: 'to-anodizing',
         name: '送氧化厂',
+        time: '0.5-1天',
         material: '清洗后工件、周转箱、珍珠棉',
         description: '将清洗合格的工件装周转箱，做好防护后送往氧化厂。运输过程中需防尘、防刮伤、防挤压变形。工件需保持干燥，避免受潮氧化。',
         problems: [
@@ -233,6 +251,7 @@ const processes = [
     {
         id: 'hanging',
         name: '上挂',
+        time: '0.5-1天',
         material: '工件、氧化挂具、遮蔽材料',
         description: '将工件装到氧化挂具上，确保导电良好（钛挂具或铝挂具）。遮蔽不需要氧化的区域（如螺纹孔、导电触点）。确保工件在后续清洗和氧化中不脱落。',
         problems: [
@@ -247,6 +266,7 @@ const processes = [
     {
         id: 'pretreatment',
         name: '表面预处理',
+        time: '0.5-1天',
         material: '除油剂、碱蚀液（NaOH）、出光液（HNO₃）、纯水',
         description: '① 热碱脱脂：55-65℃，3-8分钟，去除油污；② 水洗；③ 碱蚀：NaOH 50-60℃，1-5分钟，腐蚀掉自然氧化膜，整平表面；④ 水洗；⑤ 出光：稀硝酸常温，1-3分钟，去除挂灰，露出银白色纯铝基体；⑥ 纯水终洗：电导率≤20μS/cm。',
         problems: [
@@ -263,6 +283,7 @@ const processes = [
     {
         id: 'anodizing',
         name: '阳极氧化',
+        time: '0.5-1天',
         material: '硫酸电解液、氧化槽、电源',
         description: '将工件浸入硫酸电解液（浓度15-20%），通直流电（电压12-20V），在铝表面生成一层致密的氧化膜（厚度5-25μm）。氧化时间根据膜厚要求确定，通常20-60分钟。槽液温度控制在18-22℃，温度过高会导致氧化膜疏松。',
         problems: [
@@ -278,6 +299,7 @@ const processes = [
     {
         id: 'coloring',
         name: '着色（可选）',
+        time: '0.5-1天',
         material: '有机染料、染色槽',
         description: '阳极氧化后，将工件浸入有机染料槽（如黑色、金色、蓝色等），染料渗入氧化膜微孔中，实现着色。染色温度通常50-60℃，时间5-15分钟。也可采用电解着色（金属盐），获得更耐候的颜色。',
         problems: [
@@ -292,6 +314,7 @@ const processes = [
     {
         id: 'sealing',
         name: '封孔',
+        time: '0.5-1天',
         material: '封孔剂（热水/镍盐/冷封）、封孔槽',
         description: '将阳极氧化膜的微孔封闭，提高耐蚀性和耐污性。① 热水封孔：95-100℃纯水，20-30分钟；② 镍盐封孔：含镍封孔剂，80-90℃，15-20分钟；③ 冷封孔：含氟/镍盐，常温，10-15分钟。封孔后需水洗。',
         problems: [
@@ -306,6 +329,7 @@ const processes = [
     {
         id: 'drying',
         name: '干燥',
+        time: '0.5-1天',
         material: '封孔后工件、烘干炉',
         description: '将封孔后工件送入烘干炉，60-80℃热风烘干，时间10-20分钟。温度不宜过高（≤100℃），避免氧化膜开裂。烘干后自然冷却至室温。',
         problems: [
@@ -320,6 +344,7 @@ const processes = [
     {
         id: 'unhanging',
         name: '下挂',
+        time: '0.5-1天',
         material: '干燥后工件、挂具',
         description: '将工件从挂具上取下，拆除遮蔽材料，检查氧化面是否有明显缺陷。合格件转入下工序。',
         problems: [
@@ -333,7 +358,8 @@ const processes = [
     },
     {
         id: 'logo',
-        name: 'logo（镭雕/丝印/移印/烧青）',
+        name: 'logo加工',
+        time: '0.5-1天',
         material: '激光镭雕机、丝印油墨、移印胶头、烧青油墨',
         description: '① 镭雕：激光在氧化膜表面雕刻，露出底色，精度高、永久标记；② 丝印：油墨通过网版漏印，适合大面积Logo；③ 移印：硅胶头压印，适合不规则曲面；④ 烧青：油墨印刷后高温烧结，附着力极强。',
         problems: [
@@ -350,6 +376,7 @@ const processes = [
     {
         id: 'packaging',
         name: '检验包装送货',
+        time: '1-2天',
         material: '成品工件、保护膜、包装箱',
         description: '全检外观（氧化膜、logo、边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。铝合金阳极氧化件需特别注意防止磕碰和划伤，每件用珍珠棉或吸塑盘隔开。',
         problems: [
@@ -366,14 +393,17 @@ const processes = [
 ];
 
 /* ================================================================
-   渲染流程图
+   渲染流程图（每个工序下方显示时间）
    ================================================================ */
 const flowchart = document.getElementById('flowchart');
 flowchart.innerHTML = processes.map((p, i) => {
     const arrow = i < processes.length - 1 ? '<div class="flow-arrow">→</div>' : '';
     return `
         <div class="flow-node">
-            <div class="flow-box" data-id="${p.id}" onclick="showDetail('${p.id}', this)">${p.name}</div>
+            <div class="flow-item">
+                <div class="flow-box" data-id="${p.id}" onclick="showDetail('${p.id}', this)">${p.name}</div>
+                <div class="flow-time">${p.time}</div>
+            </div>
             ${arrow}
         </div>
     `;
@@ -434,10 +464,14 @@ function showDetail(id, el) {
         <div class="detail-title">${p.name}</div>
         <div class="info-grid">
             <div class="info-item">
+                <div class="label">⏱ 参考时间</div>
+                <div class="value">${p.time}</div>
+            </div>
+            <div class="info-item">
                 <div class="label">材料</div>
                 <div class="value">${p.material}</div>
             </div>
-            <div class="info-item">
+            <div class="info-item" style="grid-column: 1 / -1;">
                 <div class="label">工艺描述</div>
                 <div class="value">${p.description}</div>
             </div>
