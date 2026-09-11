@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>铝合金加工方式 · 知识拓展</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: #f5f7fa; padding: 24px; color: #1a1a2e; }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .back-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        color: #1677ff; text-decoration: none; font-size: 13px;
+        font-weight: 600; margin-bottom: 16px; transition: all 0.15s;
+    }
+    .back-link:hover { color: #4096ff; }
+
+    h1 { font-size: 24px; margin-bottom: 8px; color: #722ed1; }
+    .subtitle { color: #8c8c8c; font-size: 14px; margin-bottom: 28px; line-height: 1.7; }
+
+    .knowledge-category { margin-bottom: 28px; }
+    .category-title {
+        font-size: 15px; font-weight: 700; color: #1a1a2e;
+        padding: 8px 12px; background: #f9f0ff; border-left: 4px solid #722ed1;
+        border-radius: 4px; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .category-title .cat-num {
+        background: #722ed1; color: #fff; font-size: 11px; font-weight: 700;
+        width: 20px; height: 20px; border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center;
+        flex: 0 0 auto;
+    }
+    .cat-desc { font-size: 12px; color: #8c8c8c; margin-bottom: 10px; padding-left: 4px; }
+
+    .knowledge-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .knowledge-table th {
+        text-align: left; padding: 10px 12px; background: #fafafa;
+        color: #8c8c8c; font-weight: 600; font-size: 12px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .knowledge-table td {
+        padding: 10px 12px; border-bottom: 1px solid #f5f5f5;
+        line-height: 1.6; vertical-align: top;
+    }
+    .knowledge-table tr:last-child td { border-bottom: none; }
+    .knowledge-table tr:hover td { background: #fafafa; }
+    .craft-name { font-weight: 600; color: #1677ff; white-space: nowrap; }
+    .craft-scene { color: #595959; }
+
+    .selection-tip {
+        margin-top: 8px; padding: 16px 18px;
+        background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%);
+        border-radius: 10px; font-size: 13px; line-height: 1.8;
+    }
+    .selection-tip .tip-title { font-weight: 700; color: #389e0d; margin-bottom: 8px; }
+    .selection-tip ul { list-style: none; padding: 0; }
+    .selection-tip li { padding-left: 18px; position: relative; }
+    .selection-tip li::before { content: '▸'; position: absolute; left: 0; color: #52c41a; }
+
+    @media (max-width: 640px) {
+        body { padding: 12px; }
+        h1 { font-size: 20px; }
+        .knowledge-table th, .knowledge-table td { padding: 7px 8px; font-size: 12px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <a class="back-link" href="index.html">← 返回工序流程图</a>
+    <h1>📚 铝合金加工方式 · 知识拓展</h1>
+    <p class="subtitle">
+        铝合金加工方式按工艺原理分为 <strong>6 大类</strong>，细分常见的有 <strong>30～40 种</strong>。
+        以下为分类总览，供选型参考。
+    </p>
+    <div id="knowledgeContent"></div>
+</div>
+
+<script>
+const knowledgeData = [
+    {
+        category: '铸造类',
+        icon: '🔥',
+        desc: '把铝变成液态再成型，适合形状复杂、批量大的零件',
+        items: [
+            { name: '压铸（热室/冷室）', feature: '效率高，适合复杂薄壁件', scene: '充电宝中框、支架、外壳' },
+            { name: '重力铸造', feature: '模具成本低，致密度一般', scene: '大件、小批量' },
+            { name: '低压铸造', feature: '致密度好，气孔少', scene: '轮毂、结构件' },
+            { name: '砂型铸造', feature: '成本低，精度差', scene: '大型铸件、原型' },
+            { name: '熔模铸造（失蜡）', feature: '精度高，表面好', scene: '复杂精密件' },
+            { name: '挤压铸造', feature: '兼顾锻造和铸造性能', scene: '高强度结构件' }
+        ]
+    },
+    {
+        category: '变形加工类',
+        icon: '🔨',
+        desc: '固态下改变形状，强度韧性好，适合板材、型材、冲压件',
+        items: [
+            { name: '挤压', feature: '型材长度大，截面一致', scene: '铝型材边框、散热器' },
+            { name: '轧制', feature: '板材/卷材，厚度均匀', scene: '铝板、铝箔' },
+            { name: '锻造', feature: '强度高，组织致密', scene: '高强度结构件、轮毂' },
+            { name: '拉拔', feature: '线材、管材，尺寸精度高', scene: '铝管、铝线' },
+            { name: '冲压', feature: '效率高，适合薄板', scene: '五金件、外壳、支架' },
+            { name: '旋压', feature: '回转体成型，省料', scene: '灯罩、锅具、筒形件' },
+            { name: '弯曲/辊压', feature: '连续成型', scene: '边框、导轨' }
+        ]
+    },
+    {
+        category: '切削加工类',
+        icon: '⚙️',
+        desc: 'CNC 和精密加工，精度高，适合复杂三维形状',
+        items: [
+            { name: 'CNC 铣削', feature: '精度高，适合复杂三维形状', scene: '手机中框、充电宝外壳' },
+            { name: 'CNC 车削', feature: '回转体零件效率高', scene: '轴、套、圆形件' },
+            { name: '钻孔/攻牙', feature: '孔加工和螺纹', scene: '所有装配孔' },
+            { name: '磨削', feature: '高精度、高表面质量', scene: '精密配合面' },
+            { name: '电火花/线切割', feature: '硬质、复杂形状', scene: '模具、异形孔' },
+            { name: '激光切割', feature: '下料快，切口光滑', scene: '钣金下料' },
+            { name: '水刀切割', feature: '无热影响，适合厚板', scene: '厚铝板、复合材料' }
+        ]
+    },
+    {
+        category: '连接与组装类',
+        icon: '🔗',
+        desc: '将零件连接成组件，兼顾结构和密封需求',
+        items: [
+            { name: '焊接（TIG/MIG/激光/搅拌摩擦焊）', feature: '结构连接，密封性好', scene: '框架、箱体、密封件' },
+            { name: '铆接', feature: '薄板连接，无热变形', scene: '钣金件、外壳组装' },
+            { name: '螺纹连接', feature: '可拆卸', scene: '需维护的结构' },
+            { name: '粘接', feature: '异种材料连接，应力小', scene: '铝+塑胶、铝+其他金属' }
+        ]
+    },
+    {
+        category: '表面处理类',
+        icon: '🎨',
+        desc: '改变表面性能与外观，决定颜值和寿命',
+        items: [
+            { name: '阳极氧化', feature: '生成氧化膜，可染色，耐磨耐蚀', scene: '充电宝外壳、手机中框' },
+            { name: '电泳', feature: '涂层均匀，附着力好', scene: '汽车件、高端外壳' },
+            { name: '喷涂/烤漆', feature: '颜色丰富，成本低', scene: '家电、五金件' },
+            { name: '电镀', feature: '金属光泽，导电好', scene: '装饰件、导电件' },
+            { name: '化学转化（钝化/皮膜）', feature: '提升附着力，成本低', scene: '烤漆前处理' },
+            { name: '喷砂/拉丝/抛光', feature: '机械表面纹理', scene: '外观件质感处理' },
+            { name: '镭雕/丝印/移印', feature: 'Logo 和字符', scene: '品牌标识、参数' }
+        ]
+    },
+    {
+        category: '增材制造类',
+        icon: '🖨️',
+        desc: '3D 打印，适合原型、小批量、复杂结构',
+        items: [
+            { name: 'SLM（激光选区熔化）', feature: '高精度，复杂结构', scene: '航空航天、医疗、原型' },
+            { name: 'SLS（激光选区烧结）', feature: '适合原型和小批量', scene: '功能原型、工装夹具' },
+            { name: 'WAAM（电弧增材）', feature: '大尺寸金属件', scene: '大型结构件、模具修复' }
+        ]
+    }
+];
+
+function renderKnowledge() {
+    const container = document.getElementById('knowledgeContent');
+    let html = '';
+
+    knowledgeData.forEach((cat, idx) => {
+        html += `
+            <div class="knowledge-category">
+                <div class="category-title">
+                    <span class="cat-num">${idx + 1}</span>
+                    ${cat.icon} ${cat.category}
+                </div>
+                <p class="cat-desc">${cat.desc}</p>
+                <table class="knowledge-table">
+                    <thead>
+                        <tr>
+                            <th style="width:30%;">典型工艺</th>
+                            <th style="width:35%;">特点</th>
+                            <th style="width:35%;">适用场景</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cat.items.map(item => `
+                            <tr>
+                                <td class="craft-name">${item.name}</td>
+                                <td>${item.feature}</td>
+                                <td class="craft-scene">${item.scene}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    });
+
+    html += `
+        <div class="selection-tip">
+            <div class="tip-title">💡 选加工方式的核心逻辑</div>
+            <ul>
+                <li>形状复杂、批量大 → <strong>压铸</strong></li>
+                <li>板材类、薄壁 → <strong>冲压</strong></li>
+                <li>高精度、小批量 → <strong>CNC</strong></li>
+                <li>要颜色、耐磨 → <strong>阳极氧化</strong></li>
+                <li>要金属质感、导电 → <strong>电镀</strong></li>
+            </ul>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+renderKnowledge();
+</script>
+
+</body>
+</html>
