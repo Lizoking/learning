@@ -475,34 +475,35 @@ const processes = [
             }
         ]
     },
-    {
-        id: 'injection',
-        name: '注塑',
-        time: '2 天',
-        material: 'ABS+PC 熔融料',
-        description: '合模 → 射胶 → 保压 → 冷却定型 → 开模 → 顶出取件。料筒温度约 220-260℃，模温 60-80℃，保压压力为注射压力的 50-70%。烘干后的料通过密闭管道直接送入注塑机，避免二次吸湿。',
-        problems: [
-            { text: '缺料、飞边、缩水', solution: '' },
-            { text: '银纹、烧焦、色差', solution: '' },
-            { text: '顶针印、变形、拉伤', solution: '' },
-            { text: '使用水口料比例过高导致抗冲击强度下降、外壳变脆', solution: '' }
-        ],
-        modules: [
-            {
-                name: '注塑参数设置',
-                media: [
-                    { name: '注塑机面板', src: PLACEHOLDER_IMG }
-                ]
-            },
-            {
-                name: '注塑循环',
-                media: [
-                    { name: '合模状态', src: PLACEHOLDER_IMG },
-                    { name: '顶出取件', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
-    },
+{
+    id: 'injection',
+    name: '注塑',
+    time: '2 天',
+    material: 'ABS+PC 熔融料',
+    description: '合模 → 射胶 → 保压 → 冷却定型 → 开模 → 顶出取件。料筒温度约 220-260℃，模温 60-80℃，保压压力为注射压力的 50-70%。烘干后的料通过密闭管道直接送入注塑机，避免二次吸湿。',
+    problems: [
+        { text: '缺料、飞边、缩水', solution: '' },
+        { text: '银纹、烧焦、色差', solution: '' },
+        { text: '顶针印、变形、拉伤', solution: '' },
+        { text: '使用水口料比例过高导致抗冲击强度下降、外壳变脆', solution: '' }
+    ],
+    modules: [
+        {
+            name: '注塑参数设置',
+            media: [
+                { name: '注塑机面板', src: PLACEHOLDER_IMG }
+            ]
+        },
+        {
+            name: '注塑循环',
+            media: [
+                { name: '注塑全程示意', src: 'assets/注塑示意图.mp4' },
+                { name: '合模状态', src: PLACEHOLDER_IMG },
+                { name: '顶出取件', src: PLACEHOLDER_IMG }
+            ]
+        }
+    ]
+},
     {
         id: 'post',
         name: '注塑后处理',
