@@ -364,8 +364,7 @@ const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
     '</svg>'
 );
 
-// ================================================================
-// 自动识别媒体格式
+   
 // ================================================================
 function renderMediaItem(item) {
     const src = item.src || '';
@@ -503,10 +502,9 @@ const processes = [
         ],
         modules: [
             {
-                name: '去毛刺、水口料',
+                name: '水口料',
                 media: [
-                    { name: '毛刺', src: PLACEHOLDER_IMG },
-                    { name: '水口料', src: PLACEHOLDER_IMG }
+                    { name: '水口料', src: 'assets/plastic/水口' }
                 ]
             },
         ]
@@ -535,8 +533,9 @@ const processes = [
             {
                 name: '上挂与遮蔽',
                 media: [
-                    { name: '上挂工位', src: PLACEHOLDER_IMG },
-                    { name: '遮蔽细节', src: PLACEHOLDER_IMG }
+                    { name: '上挂工位', src: 'assets/plastic/4.上挂4.mp4' },
+                    { name: '遮喷治具', src: 'assets/plastic/遮喷治具5.png' },
+                    { name: '遮蔽治具安装', src: 'assets/plastic/遮喷治具3.mp4' }
                 ]
             }
         ]
@@ -555,20 +554,20 @@ const processes = [
             {
                 name: '除尘',
                 media: [
-                    { name: '手动除尘', src: PLACEHOLDER_IMG },
-                    { name: '除尘枪', src: PLACEHOLDER_IMG } 
+                    { name: '手动除尘', src: 'assets/plastic/除尘1.mp4' },
+                    { name: '除尘室', src: 'assets/plastic/除尘室2.mp4' } 
                 ]
             },
             {
                 name: '表面活化',
                 media: [
-                    { name: '电晕处理', src: PLACEHOLDER_IMG }
+                    { name: '电晕处理', src: 'assets/plastic/电晕处理（活化表面）2.mp4' }
                 ]
             },
             {
                 name: '底光油',
                 media: [
-                    { name: '喷涂底光油', src: PLACEHOLDER_IMG }
+                    { name: '喷涂底光油', src: 'assets/plastic/处理剂室1.mp4' }
                 ]
             }
         ]
@@ -588,8 +587,8 @@ const processes = [
             {
                 name: '喷涂线',
                 media: [
-                    { name: '底漆喷涂', src: PLACEHOLDER_IMG },
-                    { name: '面漆喷涂', src: PLACEHOLDER_IMG }
+                    { name: '底漆喷涂', src: 'assets/plastic/底漆喷涂3.mp4' },
+                    { name: '面漆喷涂', src: 'assets/plastic/面漆喷涂1.mp4' }
                 ]
             }
         ]
@@ -621,21 +620,14 @@ const processes = [
         problems: [
             { text: '待更新', solution: '' }
         ],
-        modules: [
-            {
-                name: '下挂与拆遮蔽',
-                media: [
-                    { name: '下挂工位', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
+        modules: []
     },
     {
         id: 'post-process',
         name: '后处理（内容加工）',
         time: '1 天',
         material: '丝印/移印油墨、网版、胶头、刮刀',
-        description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字；④ UV油墨：印后照灯5min；普通油墨：印后烘烤25min-2小时。',
+        description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字（平均10s/个）；④ UV油墨：印后照灯5min；普通油墨：印后烘烤25min-2小时。',
         problems: [
             { text: '印刷偏位、字迹模糊', solution: '' },
             { text: '油墨附着力不足、易脱落', solution: '' },
@@ -645,9 +637,10 @@ const processes = [
             {
                 name: '移印/丝印',
                 media: [
-                    { name: '丝印视频', src: PLACEHOLDER_IMG },
-                    { name: '移印视频', src: PLACEHOLDER_IMG },
-                    { name: '烘干炉', src: PLACEHOLDER_IMG }
+                    { name: '丝印视频', src: 'assets/plastic/丝印6.mp4' },
+                    { name: '移印视频', src: 'assets/plastic/移印-1.mp4' },
+                    { name: '丝印流水线', src: 'assets/plastic/丝印流水线.png' },
+                    { name: '烘干炉', src: 'assets/plastic/烘烤炉.png' }
                 ]
             }
         ]
