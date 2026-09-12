@@ -124,114 +124,70 @@ const processes = [
     {
         id: 'incoming',
         name: '来料',
-        time: '1-3天',
-        material: '铝合金板材/卷材（5052、6061、6063等，厚度0.5-3mm）',
-        description: '供应商送货到厂。核对材质牌号、厚度、批次号、数量、力学性能报告（COA）。检查板材表面是否有划伤、氧化、油污、波浪变形。铝合金板材需存放在干燥通风处，避免受潮氧化。',
+        time: '3天',
+        material: '铝合金板材/卷材（我司常用型号5052）',
+        description: '铝合金供应商收到大幅板材，根据五金厂需求的条状/片状尺寸，进行前处理（剪板/激光切割），再送货给五金厂。铝合金板材需存放在干燥通风处，避免受潮氧化。',
         problems: [
-            { text: '牌号或批次与订单不符，存在混料风险', solution: '每批来料核对COA，并用光谱仪抽检成分；不同牌号分区存放，标识清晰。' },
-            { text: '板材表面划伤或氧化严重', solution: '目视检查，严重划伤/氧化的退货；轻微的可通过前处理去除。' },
-            { text: '厚度公差超标影响冲压和CNC', solution: '抽检厚度，超差批次退货；冲压前确认板材厚度。' }
+            { text: '部分五金厂不固定板材供应商，可能是街边门店购买，可能造成每次生产都不一样且会发生新的不可控问题', solution: '固定大型供应商和型号' }
         ],
         modules: [
-            { name: '来料签收', media: [ { name: '送货单与牌号核对', src: PLACEHOLDER_IMG }, { name: '板材外观检查', src: PLACEHOLDER_IMG } ] }
-        ]
-    },
-    {
-        id: 'iqc',
-        name: '检验',
-        time: '0.5-1天',
-        material: '铝合金板材、光谱仪、千分尺',
-        description: 'IQC 进料检验：① 用直读光谱仪（OES）检测合金成分，确保符合5052/6061/6063等标准；② 千分尺测量板材厚度；③ 目视检查表面质量；④ 抽检力学性能（如硬度、抗拉强度）。',
-        problems: [
-            { text: '成分偏差导致冲压开裂或阳极氧化色差', solution: '光谱仪全检，超标批次退货；建立材质标准样品库。' },
-            { text: '厚度超差影响冲压模具寿命', solution: '千分尺抽检，超差批次退货或调整冲压参数。' },
-            { text: '表面氧化膜过厚导致阳极氧化发花', solution: '检查来料存放时间，氧化严重的退货；前处理时加强碱蚀。' }
-        ],
-        modules: [
-            { name: '光谱分析', media: [ { name: '直读光谱仪', src: PLACEHOLDER_IMG } ] },
-            { name: '厚度与外观', media: [ { name: '千分尺测厚', src: PLACEHOLDER_IMG } ] }
-        ]
-    },
-    {
-        id: 'blanking',
-        name: '下料（剪板/激光切割）',
-        time: '1-2天',
-        material: '铝合金板材、剪板机、激光切割机',
-        description: '① 剪板：用剪板机将大板剪成条料或块料，适合简单直线下料；② 激光切割：用光纤激光切割机（功率1-3kW）切割复杂形状，精度可达±0.1mm，切口光滑无毛刺。下料后需去油污，为后续冲压做准备。',
-        problems: [
-            { text: '剪板尺寸偏差导致冲压定位不准', solution: '定期校准剪板机挡料尺寸；首件检验合格后再批量下料。' },
-            { text: '激光切割挂渣、切口粗糙', solution: '调整激光功率、切割速度和辅助气体压力；必要时增加打磨工序。' },
-            { text: '下料后板材变形', solution: '控制剪板/切割应力，必要时增加校平工序。' }
-        ],
-        modules: [
-            { name: '剪板下料', media: [ { name: '剪板机', src: PLACEHOLDER_IMG } ] },
-            { name: '激光切割', media: [ { name: '光纤激光切割机', src: PLACEHOLDER_IMG }, { name: '切割后工件', src: PLACEHOLDER_IMG } ] }
+            { name: '铝合金板材', media: [ { name: '铝合金图', src: PLACEHOLDER_IMG }
         ]
     },
     {
         id: 'stamping',
         name: '冲压成型',
-        time: '1-3天',
-        material: '下料后板料、冲压模具、冲床',
-        description: '① 拉深：将平板料拉深成杯状或盒状；② 冲孔：冲出安装孔、定位孔；③ 切边：切除多余边料，保证外形尺寸。冲压吨位根据板材厚度和成型难度选择，通常 25-200 吨。模具需定期保养，保证间隙合理。',
+        time: '约10s/个',
+        material: '板料、冲压模具、冲床',
+        description: '① 拉深：将平板料拉深成杯状或盒状；② 冲孔：冲出安装孔、定位孔；③ 切边：切除多余边料，保证外形尺寸。③ 模具需定期保养，保证间隙合理。',
         problems: [
-            { text: '拉深开裂、起皱', solution: '调整压边力、拉深间隙和润滑；必要时增加退火工序。' },
-            { text: '冲孔毛刺过大', solution: '检查冲头与凹模间隙（通常为板厚的5-10%）；定期刃磨冲头。' },
-            { text: '切边不齐、尺寸超差', solution: '调整切边模定位；首件检验合格后再批量生产。' },
-            { text: '模具磨损导致批量不良', solution: '建立模具保养计划，每5000-10000次保养一次。' }
+            { text: '模具无预兆突发损坏需修模，导致时间延长1-3天', solution: '暂无' }
         ],
         modules: [
-            { name: '冲压设备', media: [ { name: '冲床', src: PLACEHOLDER_IMG }, { name: '冲压模具', src: PLACEHOLDER_IMG } ] },
-            { name: '成型后工件', media: [ { name: '拉深件', src: PLACEHOLDER_IMG }, { name: '冲孔切边件', src: PLACEHOLDER_IMG } ] }
+            { name: '冲压', media: [ { name: '冲压过程', src: PLACEHOLDER_IMG }, { name: '冲压后产品', src: PLACEHOLDER_IMG }, { name: '连续冲压示意', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'inspection-stamping',
         name: '检验',
-        time: '0.5-1天',
-        material: '冲压后工件、卡尺、投影仪',
-        description: '冲压后检验：① 尺寸检验（外形、孔径、孔位）；② 外观检验（开裂、起皱、毛刺、压痕）；③ 抽检拉深壁厚均匀性。不合格品挑出，批量不良需调整模具。',
+        time: '/',
+        material: '冲压后工件',
+        description: '冲压后检验，同时撕膜。',
         problems: [
-            { text: '尺寸超差导致装配干涉', solution: '卡尺/投影仪抽检，超差批次调整模具后重做。' },
-            { text: '开裂、起皱未挑出', solution: '外观全检，建立不良品样品库；调整冲压参数。' },
-            { text: '毛刺过大影响后续CNC', solution: '冲压后增加去毛刺工序，或调整冲压间隙。' }
-        ],
-        modules: [
-            { name: '尺寸检验', media: [ { name: '卡尺测量', src: PLACEHOLDER_IMG } ] },
-            { name: '外观检验', media: [ { name: '灯检工位', src: PLACEHOLDER_IMG } ] }
+            { text: '待更新', solution: '' }
         ]
     },
     {
         id: 'cnc',
         name: 'CNC精加工',
-        time: '1-3天',
+        time: '30-40s/个/次',
         material: '冲压后工件、CNC设备、切削液',
-        description: '上CNC加工中心，进行钻孔、攻牙、铣削、倒角等精加工，保证装配精度（可达±0.02mm）。铝合金切削性能好，但易粘刀，需使用高速切削和充足切削液。加工后需清洗去除切削液。',
+        description: '上CNC加工中心，进行钻孔、攻牙、铣削、倒角等精加工，保证装配精度（可达±0.02mm）。铝合金切削性能好，但易粘刀，需使用高速切削和充足切削液。加工后需清洗去除切削液。*目前781是一次8个，一次8-10分钟',
         problems: [
             { text: '孔口翻边毛刺', solution: '降低进给速度，使用锋利刀具；加工后增加去毛刺工序。' },
-            { text: '粘刀导致表面粗糙', solution: '提高切削液浓度，使用涂层刀具（如TiAlN）；提高主轴转速。' },
             { text: '尺寸超差', solution: '定期校准CNC设备，首件检验合格后再批量加工。' },
             { text: '切削液残留导致阳极氧化不良', solution: 'CNC后必须彻底清洗，去除切削液。' }
         ],
         modules: [
-            { name: 'CNC加工', media: [ { name: 'CNC加工中心', src: PLACEHOLDER_IMG }, { name: '钻孔/攻牙', src: PLACEHOLDER_IMG } ] }
+            { name: 'CNC加工', media: [ { name: '加工过程1', src: PLACEHOLDER_IMG }, { name: '加工过程2', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'deburring',
         name: '去毛刺/清洗',
         time: '0.5-1天',
-        material: 'CNC后工件、磁力研磨机、超声波清洗机、除油粉',
-        description: '① 去毛刺：用磁力研磨机（磁针抛光）或人工刮刀去除孔口翻边毛刺；② 清洗：超声波清洗机加碱性除油粉，55-65℃，10-15分钟，去除切削液和铝屑；③ 纯水漂洗；④ 烘干。清洗后工件表面应无油污、无铝屑，白布擦拭无黑灰。',
+        material: 'CNC后工件、打磨设备/砂纸、清洗水槽',
+        description: '① 去毛刺：用设备或砂纸去除孔口翻边毛刺；② 清洗：清洗液加碱性除油粉，去除切削液和铝屑；③ 纯水漂洗；④ 烘干/自然晾干。清洗后工件表面应无油污、无铝屑，白布擦拭无黑灰。',
         problems: [
-            { text: '毛刺去除不净导致装配干涉', solution: '磁力研磨15-30分钟，人工复检；必要时用显微镜检查。' },
-            { text: '清洗不净导致阳极氧化发花', solution: '超声波清洗+除油粉，定期更换槽液；滴水测试验证亲水性。' },
-            { text: '清洗后二次污染', solution: '清洗后立即烘干，避免手直接接触；使用无尘手套。' }
-        ],
-        modules: [
-            { name: '去毛刺', media: [ { name: '磁力研磨机', src: PLACEHOLDER_IMG } ] },
-            { name: '超声波清洗', media: [ { name: '超声波清洗机', src: PLACEHOLDER_IMG } ] }
+            { text: '待更新', solution: '' }
         ]
+    },
+ {
+        id: 'others',
+        name: '其他（可选）',
+        time: '/',
+        material: 'CNC后的金属件',
+        description: '镜面抛光（可选）：P791成型后需要人工抛光，每个要抛4次，每人每天抛光约150个；光学纹理（可选）：P791抛光完要送镭雕厂做光学纹理，2min/个；等等。',
     },
     {
         id: 'to-anodizing',
