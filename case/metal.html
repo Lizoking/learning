@@ -131,7 +131,7 @@ const processes = [
             { text: '部分五金厂不固定板材供应商，可能是街边门店购买，可能造成每次生产都不一样且会发生新的不可控问题', solution: '固定大型供应商和型号' }
         ],
         modules: [
-            { name: '铝合金板材', media: [ { name: '铝合金图', src: PLACEHOLDER_IMG }
+            { name: '铝合金板材', media: [ { name: '铝合金图', src: PLACEHOLDER_IMG }]
         ]
     },
     {
@@ -183,17 +183,19 @@ const processes = [
         ]
     },
  {
-        id: 'others',
-        name: '其他（可选）',
-        time: '/',
-        material: 'CNC后的金属件',
-        description: '镜面抛光（可选）：P791成型后需要人工抛光，每个要抛4次，每人每天抛光约150个；光学纹理（可选）：P791抛光完要送镭雕厂做光学纹理，2min/个；等等。',
-    },
+    id: 'others',
+    name: '其他（可选）',
+    time: '/',
+    material: 'CNC后的金属件',
+    description: '镜面抛光（可选）：P791成型后需要人工抛光，每个要抛4次，每人每天抛光约150个；光学纹理（可选）：P791抛光完要送镭雕厂做光学纹理，2min/个；等等。',
+    problems: [],
+    modules: []
+},
     {
         id: 'to-anodizing',
         name: '送氧化厂',
-        time: '0.5-1天',
-        material: '清洗后工件、周转箱、珍珠棉',
+        time: '0.5天',
+        material: '清洗后工件',
         description: '将清洗合格的工件装周转箱，做好防护后送往氧化厂。运输过程中需防尘、防刮伤、防挤压变形。工件需保持干燥，避免受潮氧化。',
         problems: [
             { text: '运输过程刮伤或压变形', solution: '每件用珍珠棉隔开，周转箱内加隔板；轻拿轻放。' },
