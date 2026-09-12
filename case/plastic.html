@@ -468,39 +468,39 @@ const processes = [
             {
                 name: '原料干燥',
                 media: [
-                    { name: '热风干燥机设置', src: PLACEHOLDER_IMG },
+                    { name: '热风干燥机设置', src: PLACEHOLDER_IMG }
                 ]
-            },
+            }
         ]
     },
-{
-    id: 'injection',
-    name: '注塑',
-    time: '2 天',
-    material: 'ABS+PC',
-    description: '调参数→合模→射胶→保压→冷却定型→开模→顶出取件。',
-    problems: [
-        { text: '缩痕/缩孔 → 喷涂后塌陷明显', solution: '增加保压' },
-        { text: '应力痕/白印 → 喷涂后易开裂或产生“鬼影”', solution: '降低模温/退火' },
-        { text: '熔接线 → 喷涂后依然可见', solution: '提高模温/排气改善' },
-        { text: '使用水口料比例过高导致抗冲击强度下降、外壳变脆', solution: '尽量管控不用水口料' }
-    ],
-    modules: [
-        {
-            name: '注塑核心工艺参数',
-            media: [
-                { name: '核心工艺参数 (五要素)', src: PLACEHOLDER_IMG }
-            ]
-        },
-        {
-            name: '注塑过程',
-            media: [
-                { name: '注塑全程示意', src: 'assets/注塑示意图.mp4' },
-                { name: '注塑实拍', src: PLACEHOLDER_IMG },
-            ]
-        }
-    ]
-},
+    {
+        id: 'injection',
+        name: '注塑',
+        time: '2 天',
+        material: 'ABS+PC',
+        description: '调参数→合模→射胶→保压→冷却定型→开模→顶出取件。',
+        problems: [
+            { text: '缩痕/缩孔 → 喷涂后塌陷明显', solution: '增加保压' },
+            { text: '应力痕/白印 → 喷涂后易开裂或产生"鬼影"', solution: '降低模温/退火' },
+            { text: '熔接线 → 喷涂后依然可见', solution: '提高模温/排气改善' },
+            { text: '使用水口料比例过高导致抗冲击强度下降、外壳变脆', solution: '尽量管控不用水口料' }
+        ],
+        modules: [
+            {
+                name: '注塑核心工艺参数',
+                media: [
+                    { name: '核心工艺参数 (五要素)', src: PLACEHOLDER_IMG }
+                ]
+            },
+            {
+                name: '注塑过程',
+                media: [
+                    { name: '注塑全程示意', src: 'assets/注塑示意图.mp4' },
+                    { name: '注塑实拍', src: PLACEHOLDER_IMG }
+                ]
+            }
+        ]
+    },
     {
         id: 'post',
         name: '注塑后处理',
