@@ -460,34 +460,6 @@ const processes = [
         ]
     },
     {
-        id: 'inspection',
-        name: '检验',
-        time: '1 天',
-        material: 'ABS+PC 颗粒、标准色板',
-        description: 'IQC 进料检验：核对牌号与 COA，目视检查颗粒颜色、形态、杂质；抽检含水率。必要时用 DSC 做批次一致性比对，用红外光谱鉴定成分是否为 PC/ABS。',
-        problems: [
-            { text: '含水率超标，注塑后出现银纹、气泡', solution: '' },
-            { text: '颜色与标准色板有偏差', solution: '' },
-            { text: '混入杂粒、黑点或不同颜色颗粒', solution: '' },
-            { text: '牌号被替换或掺混其他材料', solution: '' }
-        ],
-        modules: [
-            {
-                name: '外观与色板比对',
-                media: [
-                    { name: '颗粒与标准色板对比', src: PLACEHOLDER_IMG }
-                ]
-            },
-            {
-                name: '含水率与成分检测',
-                media: [
-                    { name: '水分仪读数', src: PLACEHOLDER_IMG },
-                    { name: 'DSC 曲线比对', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
-    },
-    {
         id: 'prep',
         name: '成型前准备',
         time: '0.5 天',
@@ -590,26 +562,6 @@ const processes = [
                 name: '包装与交接',
                 media: [
                     { name: '周转箱装件', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
-    },
-    {
-        id: 'spray-iqc',
-        name: '检验',
-        time: '0.5 天',
-        material: '注塑白件',
-        description: '喷涂厂来料检验：检查白件是否有飞边、缩水、变形、划伤、色差等缺陷，确认退火是否已完成（如需要），不合格品退回或挑出。',
-        problems: [
-            { text: '白件缺陷未挑出，喷涂后放大', solution: '' },
-            { text: '内应力未消除，喷漆后开裂', solution: '' },
-            { text: '来料数量与交接单不符', solution: '' }
-        ],
-        modules: [
-            {
-                name: '白件全检',
-                media: [
-                    { name: '白件检验工位', src: PLACEHOLDER_IMG }
                 ]
             }
         ]
@@ -747,36 +699,8 @@ const processes = [
         ]
     },
     {
-        id: 'reliability',
-        name: '品检（可靠性测试）',
-        time: '1 天',
-        material: '喷涂成品壳',
-        description: '外观全检 + 可靠性抽检：附着力（划格法）、铅笔硬度、酒精耐磨、色差（ΔE≤1.5）、光泽度。充电宝外壳还需关注抗刮耐磨和耐手汗腐蚀。',
-        problems: [
-            { text: '附着力不足、掉漆', solution: '' },
-            { text: '硬度不达标、易划伤', solution: '' },
-            { text: '酒精耐磨不合格', solution: '' },
-            { text: '色差超出允收范围', solution: '' }
-        ],
-        modules: [
-            {
-                name: '外观全检',
-                media: [
-                    { name: '外观检验工位', src: PLACEHOLDER_IMG }
-                ]
-            },
-            {
-                name: '可靠性测试',
-                media: [
-                    { name: '划格法附着力测试', src: PLACEHOLDER_IMG },
-                    { name: '酒精耐磨测试', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
-    },
-    {
         id: 'post-process',
-        name: '后处理（遮蔽撕膜-移印/丝印）',
+        name: '后处理（内容加工）',
         time: '1 天',
         material: '丝印/移印油墨、网版、胶头、刮刀',
         description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字；④ 印后 80℃ 烘 5-10 分钟。',
