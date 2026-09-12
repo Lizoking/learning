@@ -431,9 +431,15 @@ function renderMediaItem(item) {
     const src = item.src || '';
     const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(src);
     if (isVideo) {
-        return `<div class="media-item"><div class="media-name">${item.name}</div><video src="${src}" controls></video></div>`;
+        return `<div class="media-item">
+            <div class="media-name">${item.name}</div>
+            <video src="${src}" controls preload="none" style="background:#000;"></video>
+        </div>`;
     }
-    return `<div class="media-item"><div class="media-name">${item.name}</div><img src="${src}" alt="${item.name}"></div>`;
+    return `<div class="media-item">
+        <div class="media-name">${item.name}</div>
+        <img src="${src}" alt="${item.name}" loading="lazy">
+    </div>`;
 }
 
 function renderProblemAttach(attach) {
@@ -443,9 +449,13 @@ function renderProblemAttach(attach) {
     const src = attach.src;
     const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(src);
     if (isVideo) {
-        return `<div class="problem-attach" title="${attach.name || ''}"><video src="${src}" controls></video></div>`;
+        return `<div class="problem-attach" title="${attach.name || ''}">
+            <video src="${src}" controls preload="none"></video>
+        </div>`;
     }
-    return `<div class="problem-attach" title="${attach.name || ''}"><img src="${src}" alt="${attach.name || ''}"></div>`;
+    return `<div class="problem-attach" title="${attach.name || ''}">
+        <img src="${src}" alt="${attach.name || ''}" loading="lazy">
+    </div>`;
 }
 
 function renderSolution(solution) {
