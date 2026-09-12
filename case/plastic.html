@@ -459,19 +459,9 @@ const processes = [
         description: '① 原料干燥：用热风机在 80-100℃ 下烘干 4-6 小时，含水率降至 0.02% 以下；② 模具准备：安装模具、接通模温机（控制恒温）、顶针/滑块涂布润滑脂；③ 料筒清洗：用清洗料/螺杆清洗剂排空旧料、彻底清洗，深色换浅色或清积碳时可能耗时 1 小时以上。',
         problems: [
             { text: '干燥不充分导致银纹、气泡、强度下降', solution: '' },
-            { text: '烘干后放置超时导致二次吸湿', solution: '' },
-            { text: '累积干燥时间超过 48 小时导致材料降解变色', solution: '' },
             { text: '模具温度不均导致缩水或变形', solution: '' },
             { text: '料筒残留杂色污染新料', solution: '' }
         ],
-        modules: [
-            {
-                name: '原料干燥',
-                media: [
-                    { name: '热风干燥机设置', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
     },
     {
         id: 'injection',
@@ -625,13 +615,11 @@ const processes = [
     {
         id: 'unhanging',
         name: '下挂线',
-        time: '0.5 天',
-        material: '固化后壳件、治具',
+        time: '0-0.5 天',
+        material: '固化后的壳件、治具',
         description: '将固化完成的壳件从治具上取下，拆除遮蔽材料，检查喷涂面是否有明显缺陷，合格件转入品检。',
         problems: [
-            { text: '下挂时划伤漆面', solution: '' },
-            { text: '遮蔽材料残留', solution: '' },
-            { text: '治具上的积漆污染工件', solution: '' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
             {
@@ -647,25 +635,19 @@ const processes = [
         name: '后处理（内容加工）',
         time: '1 天',
         material: '丝印/移印油墨、网版、胶头、刮刀',
-        description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字；④ 印后 80℃ 烘 5-10 分钟。',
+        description: '① 撕除剩余遮蔽膜；② 丝印：油墨通过网版漏印到平面或规则弧面，墨层厚、立体感强，适合大面积 Logo 和色块；③ 移印：硅胶头蘸取钢版凹槽油墨压印到工件，擅长不规则曲面和精细文字；④ UV油墨：印后照灯5min；普通油墨：印后烘烤25min-2小时。',
         problems: [
             { text: '印刷偏位、字迹模糊', solution: '' },
             { text: '油墨附着力不足、易脱落', solution: '' },
-            { text: '套色不准、颜色偏差', solution: '' },
-            { text: '丝印网版堵孔、移印胶头磨损', solution: '' }
+            { text: '套色不准、颜色偏差', solution: '' }
         ],
         modules: [
             {
-                name: '遮蔽撕膜',
-                media: [
-                    { name: '撕膜工位', src: PLACEHOLDER_IMG }
-                ]
-            },
-            {
                 name: '移印/丝印',
                 media: [
-                    { name: '丝印机', src: PLACEHOLDER_IMG },
-                    { name: '移印机', src: PLACEHOLDER_IMG }
+                    { name: '丝印视频', src: PLACEHOLDER_IMG },
+                    { name: '移印视频', src: PLACEHOLDER_IMG },
+                    { name: '烘干炉', src: PLACEHOLDER_IMG }
                 ]
             }
         ]
@@ -674,33 +656,20 @@ const processes = [
         id: 'back-to-injection',
         name: '送注塑厂',
         time: '0.5 天',
-        material: '印刷后壳件、周转箱',
-        description: '将完成喷涂和印刷的壳件送回注塑厂，进行 CNC 精修。运输过程需防尘、防刮伤。',
+        material: '印刷后的壳件',
+        description: '将完成喷涂和印刷的壳件去安检后送回注塑厂，进行 CNC 精修。运输过程需防尘、防刮伤。',
         problems: [
-            { text: '运输刮伤漆面或印刷字符', solution: '' },
-            { text: '粉尘污染', solution: '' },
-            { text: '数量交接不清', solution: '' }
+            { text: '待更新', solution: '' }
         ],
-        modules: [
-            {
-                name: '包装与运输',
-                media: [
-                    { name: '周转箱装件', src: PLACEHOLDER_IMG }
-                ]
-            }
-        ]
     },
     {
         id: 'cnc',
         name: 'CNC',
         time: '1 天',
         material: '喷涂/丝印后的壳件',
-        description: 'CNC 精修开孔、切割、倒角，确保尺寸精度（可达 ±0.05mm）。塑胶 CNC 需注意：用单刃刀具减少切削热，防止塑胶发热变形和毛刺；可在加工区域铺工业橡皮泥缓冲刀具作用力。CNC 放在丝印之后时，需对已印刷区域做遮蔽保护。',
+        description: 'CNC 精修开孔、切割、倒角，确保尺寸精度。CNC 放在丝印之后时，需对已印刷区域做遮蔽保护。平均3min/个/次',
         problems: [
-            { text: '崩边、毛刺', solution: '' },
-            { text: '尺寸超差', solution: '' },
-            { text: '划伤已喷涂表面或印刷字符', solution: '' },
-            { text: '切削热导致塑胶变形', solution: '' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
             {
@@ -719,23 +688,13 @@ const processes = [
         material: '成品壳、保护膜、包装箱',
         description: '全检外观（漆面、印刷、CNC 边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。',
         problems: [
-            { text: '漏检导致不良品流出', solution: '' },
-            { text: '包装运输过程刮伤', solution: '' },
-            { text: '数量短缺', solution: '' },
-            { text: '保护膜气泡或残胶', solution: '' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
             {
-                name: '最终检验',
+                name: '暂无',
                 media: [
-                    { name: '全检工位', src: PLACEHOLDER_IMG }
-                ]
-            },
-            {
-                name: '包装出货',
-                media: [
-                    { name: '覆保护膜', src: PLACEHOLDER_IMG },
-                    { name: '装箱贴标', src: PLACEHOLDER_IMG }
+                    { name: '暂无', src: PLACEHOLDER_IMG }
                 ]
             }
         ]
