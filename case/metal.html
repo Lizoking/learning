@@ -109,6 +109,9 @@
     <div class="detail-panel" id="detailPanel"></div>
 </div>
 
+
+
+   
 <script>
 const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160">' +
@@ -198,155 +201,138 @@ const processes = [
         material: '清洗后工件',
         description: '将清洗合格的工件装周转箱，做好防护后送往氧化厂。运输过程中需防尘、防刮伤、防挤压变形。工件需保持干燥，避免受潮氧化。',
         problems: [
-            { text: '运输过程刮伤或压变形', solution: '每件用珍珠棉隔开，周转箱内加隔板；轻拿轻放。' },
-            { text: '粉尘污染表面', solution: '周转箱加盖，运输车辆保持清洁。' },
-            { text: '受潮导致表面氧化', solution: '工件烘干后立即包装，加入干燥剂。' }
+            { text: '待更新', solution: '' }
+        ],
+        modules: []
+    },
+       {
+        id: 'Sandblasting',
+        name: '喷砂（可选）',
+        time: '/',
+        material: '铝合金壳',
+        description: '若需要磨砂效果，需先进行喷砂（我司产品基本都喷钢砂）。大约60s/个/面，需要过两面（不然气压会压弯单面）。3000个基本需要3H才能完成喷砂（2面都过）。完整流程：上挂→除油清洗烘干下挂→喷砂。',
+        problems: [
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '包装与交接', media: [ { name: '周转箱装件', src: PLACEHOLDER_IMG } ] }
+            { name: '喷砂', media: [ { name: '喷砂过程', src: PLACEHOLDER_IMG }, { name: '喷砂前后对比', src: PLACEHOLDER_IMG } ] }
+        ]
+    },
+{
+        id: 'Pre-anodizing',
+        name: '预氧（可选）',
+        time: '/',
+        material: '铝合金壳',
+        description: '如果需要高亮镭雕，基本上需预先氧化一次，再送去镭雕。高亮镭雕的物理过程是把粗糙面“熨平”。预氧可以为镭雕做铺垫：氧化膜比纯铝硬，激光打上去时，有膜的地方和没膜的地方反应不同，能形成清晰的标记。完整流程：上挂→表面预处理→阳极氧化→清洗烘干下挂→高亮镭雕 (可选)',
+        problems: [
+            { text: '待更新', solution: '' }
+        ],
+        modules: [
+            { name: '高亮镭雕', media: [ { name: '高亮镭雕过程', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'hanging',
         name: '上挂',
-        time: '0.5-1天',
+        time: '30min-1天',
         material: '工件、氧化挂具、遮蔽材料',
-        description: '将工件装到氧化挂具上，确保导电良好（钛挂具或铝挂具）。遮蔽不需要氧化的区域（如螺纹孔、导电触点）。确保工件在后续清洗和氧化中不脱落。',
+        description: '将工件装到氧化挂具上，确保导电良好（钛挂具或铝挂具）。遮蔽不需要氧化的区域（如螺纹孔、导电触点）。确保工件在后续清洗和氧化中不脱落。约30s/个，一挂约30min/人，一挂约100个-200个（P781是100个）',
         problems: [
-            { text: '挂具接触不良导致氧化膜不均', solution: '检查挂具弹片压力，清洁挂具接触点；定期更换挂具。' },
-            { text: '遮蔽不到位导致误氧化', solution: '使用耐酸碱遮蔽胶带或治具；上挂后复检。' },
-            { text: '上挂时划伤工件', solution: '戴手套操作，轻拿轻放。' }
+            { text: '订单多时挂具数量不够，无法支持流水跑/订单过少需要全挂完才会进入下一环节，完整耽误一天。', solution: '增加挂具数量/尽可能满足最低起订量' }
         ],
         modules: [
-            { name: '上挂与遮蔽', media: [ { name: '上挂工位', src: PLACEHOLDER_IMG }, { name: '遮蔽细节', src: PLACEHOLDER_IMG } ] }
+            { name: '上挂流程', media: [ { name: '上挂', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'pretreatment',
         name: '表面预处理',
-        time: '0.5-1天',
+        time: '15-30min',
         material: '除油剂、碱蚀液（NaOH）、出光液（HNO₃）、纯水',
-        description: '① 热碱脱脂：55-65℃，3-8分钟，去除油污；② 水洗；③ 碱蚀：NaOH 50-60℃，1-5分钟，腐蚀掉自然氧化膜，整平表面；④ 水洗；⑤ 出光：稀硝酸常温，1-3分钟，去除挂灰，露出银白色纯铝基体；⑥ 纯水终洗：电导率≤20μS/cm。',
+        description: '① 水洗简单清洁；② 热碱脱脂：3-8分钟，去除油污；③ 水洗防止串液；④ 碱蚀：1-5分钟，腐蚀掉自然氧化膜，整平表面；⑤ 清洗中和+防止串液；⑥ 化抛/出光：1-3分钟，去除挂灰，露出银白色纯铝基体；⑦ 水洗；⑧ 纯水终洗',
         problems: [
-            { text: '除油不彻底导致氧化发花', solution: '超声波辅助脱脂；定期更换槽液；滴水测试验证。' },
-            { text: '碱蚀过度导致尺寸超差', solution: '控制碱蚀时间和温度；定期分析槽液浓度；称重法监控腐蚀量。' },
-            { text: '出光不净导致表面挂灰', solution: '控制硝酸浓度和温度；延长出光时间；加强水洗。' },
-            { text: '纯水电导率超标导致水渍', solution: '终洗纯水电导率≤20μS/cm，定期更换纯水。' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '脱脂与碱蚀', media: [ { name: '脱脂槽', src: PLACEHOLDER_IMG }, { name: '碱蚀槽', src: PLACEHOLDER_IMG } ] },
-            { name: '出光与水洗', media: [ { name: '出光槽', src: PLACEHOLDER_IMG }, { name: '纯水槽', src: PLACEHOLDER_IMG } ] }
+            { name: '表面预处理', media: [ { name: '流程视频', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'anodizing',
         name: '阳极氧化',
-        time: '0.5-1天',
-        material: '硫酸电解液、氧化槽、电源',
-        description: '将工件浸入硫酸电解液（浓度15-20%），通直流电（电压12-20V），在铝表面生成一层致密的氧化膜（厚度5-25μm）。氧化时间根据膜厚要求确定，通常20-60分钟。槽液温度控制在18-22℃，温度过高会导致氧化膜疏松。',
+        time: '20-60min',
+        material: '电解液、氧化槽、电',
+        description: '将工件浸入电解液，通直流电，在铝表面生成一层致密的氧化膜。氧化时间根据膜厚要求确定，通常20-60分钟。槽液温度控制在18-22℃，温度过高会导致氧化膜疏松。',
         problems: [
-            { text: '氧化膜厚度不均', solution: '检查挂具接触；调整电流密度；加强槽液循环。' },
-            { text: '氧化膜烧焦（局部发黑）', solution: '降低电流密度；检查挂具是否松动；控制槽液温度。' },
-            { text: '氧化膜发花、色差', solution: '前处理彻底；控制槽液温度和浓度；定期分析槽液。' },
-            { text: '氧化膜疏松、耐蚀性差', solution: '控制槽液温度≤22℃；延长氧化时间；加强封孔。' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '氧化槽', media: [ { name: '阳极氧化槽', src: PLACEHOLDER_IMG }, { name: '电源控制', src: PLACEHOLDER_IMG } ] }
+            { name: '阳极氧化', media: [ { name: '阳极氧化流程视', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'coloring',
         name: '着色（可选）',
-        time: '0.5-1天',
+        time: '5-25min/批',
         material: '有机染料、染色槽',
-        description: '阳极氧化后，将工件浸入有机染料槽（如黑色、金色、蓝色等），染料渗入氧化膜微孔中，实现着色。染色温度通常50-60℃，时间5-15分钟。也可采用电解着色（金属盐），获得更耐候的颜色。',
+        description: '阳极氧化后，将工件浸入有机染料槽（如黑色、金色、蓝色等），染料渗入氧化膜微孔中，实现着色。染色温度通常50-60℃，时间5-15分钟。',
         problems: [
-            { text: '色差、颜色不均', solution: '控制染色温度、时间和pH值；定期更换染料；加强前处理。' },
-            { text: '染色过深或过浅', solution: '调整染色时间；标准色板比对。' },
-            { text: '染料浮色导致色牢度差', solution: '染色后充分水洗；封孔前做白布擦拭测试。' }
+            { text: '随机因素导致颜色不均，上午和下午可能都不一样', solution: '尽量控制染色温度、时间和pH值；定期更换染料；加强前处理。' },
+            { text: '小订单人工着色，师傅手动把挂上下来回浸泡调色，全凭师傅经验调色，色差风险大，调色时间增加。', solution: '开专缸/量大开机器or半自动' }
         ],
         modules: [
-            { name: '染色', media: [ { name: '染色槽', src: PLACEHOLDER_IMG }, { name: '染色后工件', src: PLACEHOLDER_IMG } ] }
+            { name: '着色', media: [ { name: '染色槽', src: PLACEHOLDER_IMG }, { name: '染色过程', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'sealing',
         name: '封孔',
-        time: '0.5-1天',
+        time: '5-15min/批',
         material: '封孔剂（热水/镍盐/冷封）、封孔槽',
-        description: '将阳极氧化膜的微孔封闭，提高耐蚀性和耐污性。① 热水封孔：95-100℃纯水，20-30分钟；② 镍盐封孔：含镍封孔剂，80-90℃，15-20分钟；③ 冷封孔：含氟/镍盐，常温，10-15分钟。封孔后需水洗。',
+        description: '将阳极氧化膜的微孔封闭，提高耐蚀性和耐污性。',
         problems: [
-            { text: '封孔不足导致耐蚀性差', solution: '控制封孔温度和时间；定期分析槽液；做甲基紫测试。' },
-            { text: '封孔过度导致表面发白', solution: '控制封孔时间；避免温度过高。' },
-            { text: '封孔剂残留导致表面挂灰', solution: '封孔后充分水洗；纯水终洗。' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '封孔', media: [ { name: '封孔槽', src: PLACEHOLDER_IMG } ] }
+            { name: '封孔', media: [ { name: '封孔过程', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'drying',
-        name: '干燥',
-        time: '0.5-1天',
-        material: '封孔后工件、烘干炉',
-        description: '将封孔后工件送入烘干炉，60-80℃热风烘干，时间10-20分钟。温度不宜过高（≤100℃），避免氧化膜开裂。烘干后自然冷却至室温。',
+        name: '清洗烘干下挂',
+        time: '0.5天',
+        material: '封孔后工件、烘干炉/风干机、纯水槽',
+        description: '将封孔后工件放入纯水清洗，后送入烘干炉烘干并自然冷却 or 风干机吹干，最后下挂。',
         problems: [
-            { text: '烘干温度过高导致氧化膜开裂', solution: '控制烘干温度≤80℃；延长烘干时间。' },
-            { text: '水渍残留', solution: '终洗用纯水，电导率≤10μS/cm；烘干前吹掉表面水珠。' },
-            { text: '烘干后二次污染', solution: '烘干后立即下挂包装，避免手直接接触。' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '烘干', media: [ { name: '烘干炉', src: PLACEHOLDER_IMG } ] }
-        ]
-    },
-    {
-        id: 'unhanging',
-        name: '下挂',
-        time: '0.5-1天',
-        material: '干燥后工件、挂具',
-        description: '将工件从挂具上取下，拆除遮蔽材料，检查氧化面是否有明显缺陷。合格件转入下工序。',
-        problems: [
-            { text: '下挂时划伤氧化膜', solution: '戴手套操作，轻拿轻放；挂具定期清洁。' },
-            { text: '遮蔽材料残留', solution: '仔细拆除所有遮蔽物；必要时用镊子辅助。' },
-            { text: '挂具印明显', solution: '优化挂具接触点位置；必要时后续打磨。' }
-        ],
-        modules: [
-            { name: '下挂与拆遮蔽', media: [ { name: '下挂工位', src: PLACEHOLDER_IMG } ] }
+            { name: '烘干/风干', media: [ { name: '流程参考', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'logo',
-        name: 'logo加工',
-        time: '0.5-1天',
-        material: '激光镭雕机、丝印油墨、移印胶头、烧青油墨',
-        description: '① 镭雕：激光在氧化膜表面雕刻，露出底色，精度高、永久标记；② 丝印：油墨通过网版漏印，适合大面积Logo；③ 移印：硅胶头压印，适合不规则曲面；④ 烧青：油墨印刷后高温烧结，附着力极强。',
+        name: '五金厂处理内容',
+        time: '/',
+        material: '激光镭雕机/丝印移印油墨、胶头',
+        description: '① 镭雕：激光在氧化膜表面雕刻，露出底色，精度高、永久标记；② 丝印：油墨通过网版漏印，适合大面积Logo；③ 移印：硅胶头压印，适合不规则曲面。',
         problems: [
-            { text: '镭雕偏位、深度不均', solution: '调整激光焦距和功率；首件检验合格后再批量。' },
-            { text: '丝印/移印偏位、字迹模糊', solution: '调整网版/胶头位置；控制油墨粘度；定期检查网版磨损。' },
-            { text: '油墨附着力不足、易脱落', solution: '印刷前清洁表面；使用匹配的油墨；烘烤温度时间达标；百格测试验证。' },
-            { text: '烧青烧结不牢', solution: '控制烧结温度和时间；使用专用烧青油墨。' }
+            { text: '待更新', solution: '' }
         ],
         modules: [
-            { name: '镭雕', media: [ { name: '激光镭雕机', src: PLACEHOLDER_IMG } ] },
-            { name: '丝印/移印', media: [ { name: '丝印机', src: PLACEHOLDER_IMG }, { name: '移印机', src: PLACEHOLDER_IMG } ] }
+            { name: '镭雕/丝印', media: [ { name: '激光镭雕', src: PLACEHOLDER_IMG }, { name: '丝印', src: PLACEHOLDER_IMG } ] }
         ]
     },
     {
         id: 'packaging',
         name: '检验包装送货',
-        time: '1-2天',
-        material: '成品工件、保护膜、包装箱',
-        description: '全检外观（氧化膜、logo、边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。铝合金阳极氧化件需特别注意防止磕碰和划伤，每件用珍珠棉或吸塑盘隔开。',
+        time: '1天',
+        material: '成品工件',
+        description: '全检外观（氧化膜、logo、边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。',
         problems: [
-            { text: '漏检导致不良品流出', solution: '外观全检，灯检工位；建立不良品样品库；AQL抽检。' },
-            { text: '包装运输过程刮伤', solution: '每件隔开，珍珠棉或吸塑盘；外箱加强。' },
-            { text: '数量短缺', solution: '称重计数或人工计数，双人复核。' },
-            { text: '保护膜气泡或残胶', solution: '贴膜时排气；选择低粘保护膜。' }
+            { text: '待更新', solution: '' }
         ],
-        modules: [
-            { name: '最终检验', media: [ { name: '全检工位', src: PLACEHOLDER_IMG } ] },
-            { name: '包装出货', media: [ { name: '覆保护膜', src: PLACEHOLDER_IMG }, { name: '装箱贴标', src: PLACEHOLDER_IMG } ] }
-        ]
+        modules: []
     }
 ];
 
