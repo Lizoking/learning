@@ -374,7 +374,7 @@ function renderMediaItem(item) {
         return `
             <div class="media-item">
                 <div class="media-name">${item.name}</div>
-                <video src="${src}" controls></video>
+                <video src="${src}" controls preload="none"></video>
                 <div class="media-zoom-hint" onclick="openLightbox('${safeSrc}', true)">🔍 点击放大</div>
             </div>
         `;
@@ -382,7 +382,7 @@ function renderMediaItem(item) {
     return `
         <div class="media-item">
             <div class="media-name">${item.name}</div>
-            <img src="${src}" alt="${item.name}" onclick="openLightbox('${safeSrc}', false)">
+            <img src="${src}" alt="${item.name}" loading="lazy" onclick="openLightbox('${safeSrc}', false)">
         </div>
     `;
 }
