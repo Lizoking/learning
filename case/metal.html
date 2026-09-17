@@ -79,6 +79,36 @@
     .solution-box .solution-label { font-size: 11px; color: #8c8c8c; margin-bottom: 4px; }
     .solution-content { line-height: 1.7; color: #1a1a2e; white-space: pre-wrap; }
     .solution-content.empty { color: #bfbfbf; font-style: italic; }
+   
+   /* ===== 图片/视频放大预览弹层 ===== */
+.lightbox-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000; padding: 40px 20px; cursor: zoom-out;
+}
+.lightbox-overlay.show { display: flex; }
+.lightbox-overlay img,
+.lightbox-overlay video {
+    max-width: 90vw; max-height: 90vh;
+    border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    cursor: default;
+}
+.lightbox-close {
+    position: absolute; top: 20px; right: 24px;
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.15); color: #fff; font-size: 22px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+/* 媒体可点击提示 */
+.media-item img,
+.media-item video,
+.problem-attach img,
+.problem-attach video {
+    cursor: zoom-in;
+}
 
     @media (max-width: 640px) {
         body { padding: 12px; }
@@ -109,7 +139,11 @@
     <div class="detail-panel" id="detailPanel"></div>
 </div>
 
-
+<!-- 图片放大预览弹层 -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div id="lightboxContent"></div>
+</div>
 
    
 <script>
@@ -433,12 +467,14 @@ function renderMediaItem(item) {
     if (isVideo) {
         return `<div class="media-item">
             <div class="media-name">${item.name}</div>
-            <video src="${src}" controls preload="none" style="background:#000;"></video>
+            <video src="${src}" controls preload="none" style="background:#000;"
+                   onclick="openLightbox('${src}', true)"></video>
         </div>`;
     }
     return `<div class="media-item">
         <div class="media-name">${item.name}</div>
-        <img src="${src}" alt="${item.name}" loading="lazy">
+        <img src="${src}" alt="${item.name}" loading="lazy"
+             onclick="openLightbox('${src}', false)">
     </div>`;
 }
 
@@ -450,11 +486,13 @@ function renderProblemAttach(attach) {
     const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(src);
     if (isVideo) {
         return `<div class="problem-attach" title="${attach.name || ''}">
-            <video src="${src}" controls preload="none"></video>
+            <video src="${src}" controls preload="none"
+                   onclick="openLightbox('${src}', true)"></video>
         </div>`;
     }
     return `<div class="problem-attach" title="${attach.name || ''}">
-        <img src="${src}" alt="${attach.name || ''}" loading="lazy">
+        <img src="${src}" alt="${attach.name || ''}" loading="lazy"
+             onclick="openLightbox('${src}', false)">
     </div>`;
 }
 
@@ -465,6 +503,35 @@ function renderSolution(solution) {
     }
     return `<div class="solution-content empty">待填写</div>`;
 }
+
+/* ================================================================
+   图片/视频点击放大预览（加在这里）
+   ================================================================ */
+function openLightbox(src, isVideo) {
+    const overlay = document.getElementById('lightbox');
+    const content = document.getElementById('lightboxContent');
+    if (isVideo) {
+        content.innerHTML = `<video src="${src}" controls autoplay style="max-width:90vw;max-height:90vh;"></video>`;
+    } else {
+        content.innerHTML = `<img src="${src}" alt="预览">`;
+    }
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+    if (e && e.target.closest('img, video, button')) return;
+    const overlay = document.getElementById('lightbox');
+    const content = document.getElementById('lightboxContent');
+    content.querySelectorAll('video').forEach(v => { v.pause(); v.src = ''; v.load(); });
+    content.innerHTML = '';
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+});
 </script>
 
 </body>
