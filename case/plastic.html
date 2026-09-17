@@ -342,7 +342,7 @@
 
 <div class="container">
     <a class="back-link" href="index.html">🏠 返回主页</a>
-    <a class="back-link" href="plasticknowledge.html">🧩 塑胶件加工方式 · 知识拓展 →</a>
+    <a class="back-link" href="plasticknowledge.html">🧩 塑胶件加工方式 · 拓展 →</a>
     <h1>📋 塑胶件生产工序流程图</h1>
     <p class="subtitle">点击上方工序方框，下方显示该工序的详细内容</p>
 
@@ -437,9 +437,7 @@ const processes = [
         time: '3 天',
         material: 'ABS+PC 合金颗粒',
         description: '供应商送货到厂。核对物料型号、数量、批次号、牌号标识，检查包装是否完好。',
-        problems: [
-            { text: '待确认', solution: '' }
-        ],
+        problems: [],
         modules: [
             {
                 name: '原材料',
@@ -457,7 +455,6 @@ const processes = [
         material: 'ABS+PC 颗粒、模具、清洗料',
         description: '① 原料干燥：用热风机在 80-100℃ 下烘干 4-6 小时，含水率降至 0.02% 以下；② 模具准备：安装模具、接通模温机（控制恒温）、顶针/滑块涂布润滑脂；③ 料筒清洗：用清洗料/螺杆清洗剂排空旧料、彻底清洗，深色换浅色或清积碳时可能耗时 1 小时以上。',
         problems: [
-            { text: '干燥不充分导致银纹、气泡、强度下降', solution: '' },
             { text: '模具温度不均导致缩水或变形', solution: '' },
             { text: '料筒残留杂色污染新料', solution: '' }
         ],
@@ -477,7 +474,7 @@ const processes = [
         ],
         modules: [
             {
-                name: '注塑核心工艺参数',
+                name: '',
                 media: [
                     { name: '核心工艺参数 (五要素)', src: 'assets/plastic/注塑核心工艺5要素.png' }
                 ]
@@ -516,9 +513,7 @@ const processes = [
         time: '0.5 天',
         material: '注塑白件',
         description: '将检验合格的注塑白件装周转箱，做好防护后送往喷涂厂。喷涂厂全检/抽检。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
        modules: []
     },
     {
@@ -528,8 +523,8 @@ const processes = [
         material: '白件、挂具、遮喷治具',
         description: '将白件装到挂具上，遮蔽不需要喷涂的区域（如卡扣、螺丝柱、导电触点）。确保工件在后续清洗和喷涂中不脱落、不划伤。',
         problems: [
-            { text: '治具固定不牢导致掉落', solution: '' },
-            { text: '遮蔽不到位导致误喷', solution: '' }
+            { text: '治具固定不牢导致掉落', solution: '固定好治具' },
+            { text: '遮蔽不到位导致误喷', solution: '做好遮蔽' }
         ],
         modules: [
             {
@@ -619,9 +614,7 @@ const processes = [
         time: '0-0.5 天',
         material: '固化后的壳件、治具',
         description: '将固化完成的壳件从治具上取下，拆除遮蔽材料，检查喷涂面是否有明显缺陷，合格件转入品检。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: []
     },
     {
@@ -653,9 +646,7 @@ const processes = [
         time: '0.5 天',
         material: '印刷后的壳件',
         description: '将完成喷涂和印刷的壳件去安检后送回注塑厂，进行 CNC 精修。运输过程需防尘、防刮伤。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
     },
     {
         id: 'cnc',
@@ -663,9 +654,7 @@ const processes = [
         time: '1 天',
         material: '喷涂/丝印后的壳件',
         description: 'CNC 精修开孔、切割、倒角，确保尺寸精度。CNC 放在丝印之后时，需对已印刷区域做遮蔽保护。平均3min/个/次',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             {
                 name: 'CNC 加工',
@@ -682,9 +671,7 @@ const processes = [
         time: '1 天',
         material: '成品壳、保护膜、包装箱',
         description: '全检外观（漆面、印刷、CNC 边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: []
     }
 ];
