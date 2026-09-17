@@ -190,9 +190,7 @@ const processes = [
         time: '/',
         material: '冲压后工件',
         description: '冲压后检验，同时撕膜。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ]
+        problems: []
     },
     {
         id: 'cnc',
@@ -215,9 +213,7 @@ const processes = [
         time: '0.5-1天',
         material: 'CNC后工件、打磨设备/砂纸、清洗水槽',
         description: '① 去毛刺：用设备或砂纸去除孔口翻边毛刺；② 清洗：清洗液加碱性除油粉，去除切削液和铝屑；③ 纯水漂洗；④ 烘干/自然晾干。清洗后工件表面应无油污、无铝屑，白布擦拭无黑灰。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ]
+        problems: []
     },
  {
     id: 'others',
@@ -234,9 +230,7 @@ const processes = [
         time: '0.5天',
         material: '清洗后工件',
         description: '将清洗合格的工件装周转箱，做好防护后送往氧化厂。运输过程中需防尘、防刮伤、防挤压变形。工件需保持干燥，避免受潮氧化。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: []
     },
        {
@@ -245,9 +239,7 @@ const processes = [
         time: '/',
         material: '铝合金壳',
         description: '若需要磨砂效果，需先进行喷砂（我司产品基本都喷钢砂）。大约60s/个/面，需要过两面（不然气压会压弯单面）。3000个基本需要3H才能完成喷砂（2面都过）。完整流程：上挂→除油清洗烘干下挂→喷砂。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '喷砂', media: [ { name: '喷砂机', src: 'assets/metal/喷砂-2.mp4' }, { name: '喷砂前后对比', src: 'assets/metal/喷砂前后对比.png' } ] }
         ]
@@ -258,9 +250,7 @@ const processes = [
         time: '/',
         material: '铝合金壳',
         description: '如果需要高亮镭雕，基本上需预先氧化一次，再送去镭雕。高亮镭雕的物理过程是把粗糙面“熨平”。预氧可以为镭雕做铺垫：氧化膜比纯铝硬，激光打上去时，有膜的地方和没膜的地方反应不同，能形成清晰的标记。完整流程：上挂→表面预处理→阳极氧化→清洗烘干下挂→高亮镭雕 (可选)',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '高亮镭雕', media: [ { name: '高亮镭雕过程', src: 'assets/metal/高亮镭雕-1.mp4' } ] }
         ]
@@ -284,9 +274,7 @@ const processes = [
         time: '15-30min',
         material: '除油剂、碱蚀液（NaOH）、出光液（HNO₃）、纯水',
         description: '① 水洗简单清洁；② 热碱脱脂：3-8分钟，去除油污；③ 水洗防止串液；④ 碱蚀：1-5分钟，腐蚀掉自然氧化膜，整平表面；⑤ 清洗中和+防止串液；⑥ 化抛/出光：1-3分钟，去除挂灰，露出银白色纯铝基体；⑦ 水洗；⑧ 纯水终洗',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '表面预处理', media: [ { name: '流程简介1', src: 'assets/metal/前处理-1.mp4' }, { name: '流程简介2', src: 'assets/metal/前处理-2.mp4' } ] }
         ]
@@ -297,9 +285,7 @@ const processes = [
         time: '20-60min',
         material: '电解液、氧化槽、电',
         description: '将工件浸入电解液，通直流电，在铝表面生成一层致密的氧化膜。氧化时间根据膜厚要求确定，通常20-60分钟。槽液温度控制在18-22℃，温度过高会导致氧化膜疏松。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '阳极氧化', media: [ { name: '阳极氧化', src: 'assets/metal/阳极氧化-1.mp4' } ] }
         ]
@@ -324,9 +310,7 @@ const processes = [
         time: '5-15min/批',
         material: '封孔剂（热水/镍盐/冷封）、封孔槽',
         description: '将阳极氧化膜的微孔封闭，提高耐蚀性和耐污性。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '封孔', media: [ { name: '封孔过程', src: 'assets/metal/封孔-1.mp4'} ] }
         ]
@@ -337,9 +321,7 @@ const processes = [
         time: '0.5天',
         material: '封孔后工件、烘干炉/风干机、纯水槽',
         description: '将封孔后工件放入纯水清洗，后送入烘干炉烘干并自然冷却 or 风干机吹干，最后下挂。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '流程', media: [ { name: '风干', src: 'assets/metal/风干-1.mp4' }, { name: '下挂', src: 'assets/metal/下挂-1.mp4' } ] }
         ]
@@ -350,9 +332,7 @@ const processes = [
         time: '/',
         material: '激光镭雕机/丝印移印油墨、胶头',
         description: '① 镭雕：激光在氧化膜表面雕刻，露出底色，精度高、永久标记；② 丝印：油墨通过网版漏印，适合大面积Logo；③ 移印：硅胶头压印，适合不规则曲面。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: [
             { name: '镭雕/丝印', media: [ { name: '普通镭雕', src: 'assets/metal/普通镭雕.png' }, { name: '丝印', src: 'assets/metal/丝印.mp4' } ] }
         ]
@@ -363,9 +343,7 @@ const processes = [
         time: '1天',
         material: '成品工件',
         description: '全检外观（氧化膜、logo、边缘）→ 覆保护膜 → 装箱 → 贴标 → 送货。',
-        problems: [
-            { text: '待更新', solution: '' }
-        ],
+        problems: [],
         modules: []
     }
 ];
